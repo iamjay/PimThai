@@ -90,6 +90,7 @@
     <!-- Ensure that shared libraries in the package are found at run-time. -->
     <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
     <env var="QT_QPA_PLATFORM_PLUGIN_PATH" value="app/native/lib/platforms" />
-    <env var="QT_QPA_FONTDIR" value="/usr/fonts/font_repository/dejavu-ttf-2.17" />
+    <env var="QT_QPA_FONTDIR" value="/usr/fonts/font_repository/monotype" />
+    <!-- <env var="QT_QPA_FONTDIR" value="fonts" /> -->
     
 </qnx>
