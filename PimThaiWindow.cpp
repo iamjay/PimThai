@@ -11,6 +11,9 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
 {
     setupUi(this);
 
+    edit->setFocus();
+    setFocusProxy(edit);
+
     connect(copy, SIGNAL(clicked()), this, SLOT(copyToClipboard()));
 }
 

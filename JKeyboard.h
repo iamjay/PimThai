@@ -10,6 +10,8 @@ struct KeyData
     int altKeyCode;
     const char *text;
     const char *altText;
+    int offset;
+    int altOffset;
 };
 
 struct KeyLayout
@@ -37,9 +39,13 @@ public:
     const QString &getText(bool shifted) const;
 
 protected:
+    static QTextCodec *codec;
+
     const KeyData *keyData;
     QString text;
+    QString unicodeText;
     QString altText;
+    QString unicodeAltText;
 
     QSize sizeHint() const;
     void paintEvent(QPaintEvent *);
