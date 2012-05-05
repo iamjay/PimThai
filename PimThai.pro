@@ -33,6 +33,7 @@ package.commands = blackberry-nativepackager \
     -e ${QTDIR}/lib/libQtGui.so.4 lib/libQtGui.so.4 \
     -e ${QTDIR}/lib/libQtOpenGL.so.4 lib/libQtOpenGL.so.4 \
     -e ${QTDIR}/lib/libQtNetwork.so.4 lib/libQtNetwork.so.4 \
-    -e ${QTDIR}/plugins/platforms/libblackberry.so lib/platforms/libblackberry.so
+    -e ${QTDIR}/plugins/platforms/libblackberry.so lib/platforms/libblackberry.so \
+    -e Garuda.ttf fonts/Garuda.ttf
 
 QMAKE_EXTRA_TARGETS += package
