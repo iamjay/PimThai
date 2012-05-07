@@ -10,13 +10,11 @@ INCLUDEPATH += .
 SOURCES += \
     main.cpp \
     JKeyboard.cpp \
-    PimThaiWindow.cpp \
-    ui_PimThaiWindow.cpp
+    PimThaiWindow.cpp
 
 HEADERS += \
     JKeyboard.h \
-    PimThaiWindow.h \
-    ui_PimThaiWindow.h
+    PimThaiWindow.h
 
 blackberry-armv7le-g++ {
     LIBS += -lclipboard
@@ -38,4 +36,5 @@ package.commands = blackberry-nativepackager \
 
 QMAKE_EXTRA_TARGETS += package
 
-FORMS +=
+FORMS += \
+    PimThaiWindow.ui

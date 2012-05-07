@@ -5,21 +5,27 @@
 #endif
 
 #include "PimThaiWindow.h"
+#include "JKeyboard.h"
 
 PimThaiWindow::PimThaiWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupUi(this);
+    JKeyboard *keyboard = new JKeyboard();
+    centralwidget->layout()->addWidget(keyboard);
 
-    edit->setFocus();
-    setFocusProxy(edit);
+    QEvent event(QEvent::CloseSoftwareInputPanel);
+    QApplication::sendEvent(textEdit, &event);
 
-    connect(copy, SIGNAL(clicked()), this, SLOT(copyToClipboard()));
+    textEdit->setFocus();
+    setFocusProxy(textEdit);
+
+    connect(copyButton, SIGNAL(clicked()), this, SLOT(copyToClipboard()));
 }
 
 void PimThaiWindow::copyToClipboard()
 {
-    const QByteArray s = edit->toPlainText().toUtf8();
+    const QByteArray s = textEdit->toPlainText().toUtf8();
 
 #if __QNX__
     set_clipboard_data("text/plain", s.size(), s.constData());
