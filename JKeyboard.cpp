@@ -251,10 +251,10 @@ static KeyData *thaiShiftedKeyData[] = { thaiShifted1, thaiShifted2,
                                          thaiShifted3, thaiShifted4,
                                          thaiShifted5 };
 
-KeyLayout JKeyboard::qwertyKeys = KeyLayout(4, qwertyKeyData);
-KeyLayout JKeyboard::qwertyShiftedKeys = KeyLayout(4, qwertyShiftedKeyData);
-KeyLayout JKeyboard::thaiKeys = KeyLayout(5, thaiKeyData);
-KeyLayout JKeyboard::thaiShiftedKeys = KeyLayout(5, thaiShiftedKeyData);
+static KeyLayout qwertyKeys = KeyLayout(4, qwertyKeyData);
+static KeyLayout qwertyShiftedKeys = KeyLayout(4, qwertyShiftedKeyData);
+static KeyLayout thaiKeys = KeyLayout(5, thaiKeyData);
+static KeyLayout thaiShiftedKeys = KeyLayout(5, thaiShiftedKeyData);
 
 QTextCodec *JKey::codec = 0;
 
@@ -291,25 +291,16 @@ const QString &JKey::getText(bool alt) const
     return alt ? unicodeAltText : unicodeText;
 }
 
-QSize JKey::sizeHint() const
-{
-    return QPushButton::sizeHint();
-}
-
 void JKey::paintEvent(QPaintEvent *pe)
 {
     QPushButton::paintEvent(pe);
 
     QStylePainter p(this);
     QPen pen = p.pen();
-    pen.setColor(QColor::fromRgb(100, 100, 100));
+    pen.setColor(QColor::fromRgb(160, 160, 160));
     p.setPen(pen);
 
     p.drawText(10, keyData->altOffset * 10 + 20, altText);
-#if 0
-    QSize sz = p.fontMetrics().size(Qt::TextShowMnemonic, altText);
-    QRect rect = contentsRect();
-#endif
 }
 
 JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
@@ -342,9 +333,6 @@ JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
 
         vbox->addLayout(hbox);
     }
-
-    setBackgroundRole(QPalette::Dark);
-    setAutoFillBackground(true);
 }
 
 JKeyboard::JKeyboard(QWidget *parent)
@@ -358,26 +346,21 @@ JKeyboard::JKeyboard(QWidget *parent)
     shifted = false;
     shiftLocked = false;
 
+    setStyleSheet("QPushButton { font-size: 16pt; border-radius: 6px; color: white; background-color: black; }"
+                  "QPushButton:pressed { border-radius: 6px; background-color: #00D5FF; }");
+
     stacked = new QStackedLayout(this);
 
     thai = new JKeyboardLayout(this, &thaiKeys);
-    thai->setStyleSheet("QPushButton { font-size: 16pt; }"
-                        "QPushButton:pressed { border-radius: 6px; background-color: #00D5FF; }");
     stacked->addWidget(thai);
 
     thaiShifted = new JKeyboardLayout(this, &thaiShiftedKeys);
-    thaiShifted->setStyleSheet("QPushButton { font-size: 16pt; }"
-                               "QPushButton:pressed { border-radius: 6px; background-color: #00D5FF; }");
     stacked->addWidget(thaiShifted);
 
     qwerty = new JKeyboardLayout(this, &qwertyKeys);
-    qwerty->setStyleSheet("QPushButton { font-size: 14pt; }"
-                          "QPushButton:pressed { border-radius: 6px; background-color: #00D5FF; }");
     stacked->addWidget(qwerty);
 
     qwertyShifted = new JKeyboardLayout(this, &qwertyShiftedKeys);
-    qwertyShifted->setStyleSheet("QPushButton { font-size: 14pt; }"
-                                "QPushButton:pressed { border-radius: 6px; background-color: #00D5FF; }");
     stacked->addWidget(qwertyShifted);
 
     connect(&holdTimer, SIGNAL(timeout()), this, SLOT(holdTimeout()));
@@ -468,8 +451,10 @@ void JKeyboard::holdTimeout()
 {
     held = true;
     holdTimer.stop();
+
     if (holdKey)
         processKeyInput(holdKey, true);
+
     if (holdKey->getKeyCode(held) == Qt::Key_Backspace)
         holdTimer.start(200);
 }

@@ -35,8 +35,8 @@ class JKey : public QPushButton
 public:
     JKey(const KeyData *key, QWidget *parent = 0);
 
-    int getKeyCode(bool shifted) const;
-    const QString &getText(bool shifted) const;
+    int getKeyCode(bool alt) const;
+    const QString &getText(bool alt) const;
 
 protected:
     static QTextCodec *codec;
@@ -47,7 +47,6 @@ protected:
     QString altText;
     QString unicodeAltText;
 
-    QSize sizeHint() const;
     void paintEvent(QPaintEvent *);
 };
 
@@ -67,16 +66,12 @@ class JKeyboard : public QWidget
 public:
     JKeyboard(QWidget *parent = 0);
 
-    static KeyLayout qwertyKeys;
-    static KeyLayout qwertyShiftedKeys;
-    static KeyLayout thaiKeys;
-    static KeyLayout thaiShiftedKeys;
-
 private:
     enum {
         ENGLISH,
         THAI
     } currentLang;
+
     bool shifted;
     bool shiftLocked;
     bool held;
