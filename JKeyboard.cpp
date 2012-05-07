@@ -84,7 +84,7 @@ static KeyData qwertyShifted2[] = {
 };
 
 static KeyData qwertyShifted3[] = {
-    { 2, Qt::Key_Shift, Qt::Key_Shift, "Shift", 0, 0, 0 },
+    { 2, Qt::Key_Meta, Qt::Key_Meta, "Shift", 0, 0, 0 },
     { 2, Qt::Key_Z, 0, "Z", 0, 0, 0 },
     { 2, Qt::Key_X, 0, "X", 0, 0, 0 },
     { 2, Qt::Key_C, 0, "C", "%", 0, 0 },
@@ -222,7 +222,7 @@ static KeyData thaiShifted3[] = {
 };
 
 static KeyData thaiShifted4[] = {
-    { 2, Qt::Key_Shift, Qt::Key_Shift, "Shift", 0, 0, 0 },
+    { 2, Qt::Key_Meta, Qt::Key_Meta, "Shift", 0, 0, 0 },
     { 2, 0, Qt::Key_Exclam, "ผ", "!", 0, 0 },
     { 2, 0, 0, "ฉ", 0, 0, 0 },
     { 2, 0, 0, "ฮ", 0, 0, 0 },
@@ -275,6 +275,10 @@ JKey::JKey(const KeyData *key, QWidget *parent)
 
     setText(text);
     setFocusPolicy(Qt::NoFocus);
+    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+
+    if (key->keyCode == Qt::Key_Meta)
+        setDown(true);
 }
 
 int JKey::getKeyCode(bool alt) const
@@ -397,7 +401,7 @@ void JKeyboard::setShift(bool b)
     }
 }
 
-void JKeyboard::processKeyInput(const JKey *key, bool held)
+void JKeyboard::processKeyInput(JKey *key, bool held)
 {
     QObject *receiver = QApplication::focusWidget();
 
@@ -411,6 +415,8 @@ void JKeyboard::processKeyInput(const JKey *key, bool held)
         setShift(false);
         break;
 
+    case Qt::Key_Meta:
+        key->setDown(true);
     case Qt::Key_Shift:
         if (!shifted && held)
             shiftLocked = true;

@@ -37,3 +37,5 @@ package.commands = blackberry-nativepackager \
     -e Garuda.ttf fonts/Garuda.ttf
 
 QMAKE_EXTRA_TARGETS += package
+
+FORMS +=

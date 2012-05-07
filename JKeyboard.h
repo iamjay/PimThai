@@ -91,7 +91,7 @@ private:
     QTimer holdTimer;
 
     void setShift(bool b);
-    void processKeyInput(const JKey *key, bool held);
+    void processKeyInput(JKey *key, bool held);
 
 public slots:
     void keyPressed();
