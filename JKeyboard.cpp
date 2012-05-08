@@ -262,6 +262,7 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     : QPushButton(parent)
     , keyData(key)
 {
+#if __QNX__
     if (codec == 0)
         codec = QTextCodec::codecForName("TIS-620");
 
@@ -269,7 +270,12 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     if (keyData->altOffset)
         altText = " ";
     altText += QString::fromAscii(codec->fromUnicode(QString::fromUtf8(keyData->altText)));
-
+#else
+    text = QString::fromUtf8(keyData->text);
+    if (keyData->altOffset)
+        altText = " ";
+    altText += QString::fromUtf8(keyData->altText);
+#endif
     unicodeText = QString::fromUtf8(keyData->text);
     unicodeAltText = QString::fromUtf8(keyData->altText);
 
@@ -436,8 +442,13 @@ void JKeyboard::updatePrediction()
         button = predictButton.at(i);
 
         if (q.next()) {
-            button->setText(q.value(0).toString());
-            button->show();
+            QString s = q.value(0).toString();
+            if (s == composeStr) {
+                button->hide();
+            } else {
+                button->setText(s);
+                button->show();
+            }
         } else {
             button->hide();
         }
