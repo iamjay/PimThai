@@ -40,5 +40,7 @@ package.commands = blackberry-nativepackager \
 
 QMAKE_EXTRA_TARGETS += package
 
+QMAKE_CLEAN += $${TARGET} $${TARGET}.bar
+
 FORMS += \
     PimThaiWindow.ui
