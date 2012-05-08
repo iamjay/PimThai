@@ -273,6 +273,7 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     unicodeText = QString::fromUtf8(keyData->text);
     unicodeAltText = QString::fromUtf8(keyData->altText);
 
+    setObjectName("key");
     setText(text);
     setFocusPolicy(Qt::NoFocus);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
@@ -350,18 +351,34 @@ JKeyboard::JKeyboard(QWidget *parent)
 #endif
     dictDb.open();
 
-    setStyleSheet("QPushButton { font-size: 16pt; border-radius: 6px; color: white; background-color: black; }"
-                  "QPushButton:pressed { border-radius: 6px; background-color: #00D5FF; }");
-
-    QVBoxLayout *vbox = new QVBoxLayout(this);
+    setStyleSheet("QPushButton#key { font-size: 16pt; border-radius: 6px; color: white; background-color: black; }"
+                  "QPushButton#key:pressed { border-radius: 6px; background-color: #00D5FF; }");
 
     QHBoxLayout *hbox = new QHBoxLayout();
-    vbox->addLayout(hbox, 0);
+    QWidget *w = new QWidget();
+    w->setLayout(hbox);
+    w->setStyleSheet("margin: 0px; padding: 0px;");
+
+    QScrollArea *scroll = new QScrollArea();
+    scroll->setWidget(w);
+    scroll->setWidgetResizable(true);
+    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scroll->setFocusPolicy(Qt::NoFocus);
+    scroll->setStyleSheet("background-color: black; margin: 0px; padding: 0px; padding-left: 6px;");
+
+    QVBoxLayout *vbox = new QVBoxLayout(this);
+    vbox->addWidget(scroll, 0);
 
     for (int i = 0; i < MAX_PREDICTION; ++i) {
-        QLabel *label = new QLabel();
-        predictLabel.append(label);
-        hbox->addWidget(label);
+        QPushButton *button = new QPushButton();
+
+        button->setFocusPolicy(Qt::NoFocus);
+        button->setStyleSheet("font-size: 12pt; border: 0px; border-right: 1px solid orange; color: orange; padding-right: 6px;");
+        hbox->addWidget(button);
+
+        predictButton.append(button);
+        connect(button, SIGNAL(clicked()), this, SLOT(predictButtonClicked()));
     }
     hbox->addStretch(1);
 
@@ -381,6 +398,7 @@ JKeyboard::JKeyboard(QWidget *parent)
     connect(&holdTimer, SIGNAL(timeout()), this, SLOT(holdTimeout()));
 
     setShift(shifted);
+    updatePrediction();
 }
 
 void JKeyboard::setShift(bool b)
@@ -402,22 +420,27 @@ void JKeyboard::setShift(bool b)
 void JKeyboard::updatePrediction()
 {
     if (composeStr.length() == 0) {
-        for (int i = 1; i < MAX_PREDICTION; ++i)
-            predictLabel.at(i)->clear();
+        for (int i = 0; i < MAX_PREDICTION; ++i)
+            predictButton.at(i)->hide();
+        return;
     }
 
     QSqlQuery q(QString("select word from words where word like '%1%%'")
                 .arg(composeStr), dictDb);
 
-    predictLabel.at(0)->setText(composeStr);
+    QPushButton *button = predictButton.at(0);
+    button->setText(composeStr);
+    button->show();
 
     for (int i = 1; i < MAX_PREDICTION; ++i) {
-        QLabel *l = predictLabel.at(i);
+        button = predictButton.at(i);
 
-        if (q.next())
-            l->setText(q.value(0).toString());
-        else
-            l->clear();
+        if (q.next()) {
+            button->setText(q.value(0).toString());
+            button->show();
+        } else {
+            button->hide();
+        }
     }
     q.clear();
 }
@@ -446,9 +469,6 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
         else
             shiftLocked = false;
         setShift(!shifted);
-
-        composeStr.clear();
-        updatePrediction();
         break;
 
     case Qt::Key_Return:
@@ -462,12 +482,13 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
         break;
 
     default:
-        if (held && key->getText(held).isEmpty())
+        if (held && keyText.isEmpty()) {
             held = false;
+            keyText = key->getText(held);
+        }
 
-        if ((keyCode != 0 || !key->getText(held).isEmpty()) && receiver) {
-            QKeyEvent event(QEvent::KeyPress, keyCode,
-                            Qt::NoModifier, keyText);
+        if ((keyCode != 0 || !keyText.isEmpty()) && receiver) {
+            QKeyEvent event(QEvent::KeyPress, keyCode, Qt::NoModifier, keyText);
             QApplication::sendEvent(receiver, &event);
 
             if (keyCode == Qt::Key_Backspace)
@@ -510,4 +531,24 @@ void JKeyboard::holdTimeout()
 
     if (holdKey->getKeyCode(held) == Qt::Key_Backspace)
         holdTimer.start(200);
+}
+
+void JKeyboard::predictButtonClicked()
+{
+    QObject *receiver = QApplication::focusWidget();
+
+    QPushButton *button = static_cast<QPushButton *>(QObject::sender());
+    QString s = button->text();
+    s.remove(0, composeStr.length());
+    if (s.length() && receiver) {
+        QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier, s);
+        QApplication::sendEvent(receiver, &event);
+    }
+
+    composeStr.clear();
+    updatePrediction();
+
+    shifted = false;
+    shiftLocked = false;
+    setShift(shifted);
 }

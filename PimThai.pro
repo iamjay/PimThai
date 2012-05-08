@@ -18,6 +18,9 @@ HEADERS += \
     JKeyboard.h \
     PimThaiWindow.h
 
+FORMS += \
+    PimThaiWindow.ui
+
 blackberry-armv7le-g++ {
     LIBS += -lclipboard
 }
@@ -41,6 +44,3 @@ package.commands = blackberry-nativepackager \
 QMAKE_EXTRA_TARGETS += package
 
 QMAKE_CLEAN += $${TARGET} $${TARGET}.bar
-
-FORMS += \
-    PimThaiWindow.ui

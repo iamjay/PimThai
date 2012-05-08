@@ -16,9 +16,6 @@
         <transparent>false</transparent>
     </initialWindow>
 
-    <asset path="icon.png">icon.png</asset>
-    <asset path="dict.db">dict.db</asset>
-
     <configuration id="com.qnx.qcc.toolChain.255862546" name="Default">
        <platformArchitecture>armle-v7</platformArchitecture>
        <asset path="arm/o.le-v7-g/PimThai" entry="true" type="Qnx/Elf">PimThai</asset>

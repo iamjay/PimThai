@@ -69,7 +69,7 @@ public:
 
 private:
     enum {
-        MAX_PREDICTION = 5
+        MAX_PREDICTION = 20
     };
 
     enum {
@@ -82,7 +82,7 @@ private:
     bool held;
     QSqlDatabase dictDb;
 
-    QList<QLabel *> predictLabel;
+    QList<QPushButton *> predictButton;
     QStackedLayout *stacked;
     JKeyboardLayout *qwerty;
     JKeyboardLayout *qwertyShifted;
@@ -102,6 +102,7 @@ public slots:
     void keyPressed();
     void keyReleased();
     void holdTimeout();
+    void predictButtonClicked();
 };
 
 #endif
