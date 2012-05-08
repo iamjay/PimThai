@@ -1,4 +1,5 @@
-#include <QApplication>
+#include <QtCore>
+#include <QtSql>
 
 #include "PimThaiWindow.h"
 

@@ -2,6 +2,7 @@
 #define JKEYBOARD_H
 
 #include <QtGui>
+#include <QtSql>
 
 struct KeyData
 {
@@ -68,6 +69,10 @@ public:
 
 private:
     enum {
+        MAX_PREDICTION = 5
+    };
+
+    enum {
         ENGLISH,
         THAI
     } currentLang;
@@ -75,7 +80,9 @@ private:
     bool shifted;
     bool shiftLocked;
     bool held;
+    QSqlDatabase dictDb;
 
+    QList<QLabel *> predictLabel;
     QStackedLayout *stacked;
     JKeyboardLayout *qwerty;
     JKeyboardLayout *qwertyShifted;
@@ -85,8 +92,11 @@ private:
     JKey *holdKey;
     QTimer holdTimer;
 
+    QString composeStr;
+
     void setShift(bool b);
     void processKeyInput(JKey *key, bool held);
+    void updatePrediction();
 
 public slots:
     void keyPressed();

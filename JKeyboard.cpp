@@ -338,29 +338,44 @@ JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
 JKeyboard::JKeyboard(QWidget *parent)
     : QWidget(parent)
 {
-    QFont font = QToolTip::font();
-    font.setPointSize(12);
-    QToolTip::setFont(font);
-
     currentLang = THAI;
     shifted = false;
     shiftLocked = false;
 
+    dictDb = QSqlDatabase::addDatabase("QSQLITE");
+#if __QNX__
+    dictDb.setDatabaseName("app/native/dict.db");
+#else
+    dictDb.setDatabaseName("/home/jay/blackberry/PimThai/dict.db");
+#endif
+    dictDb.open();
+
     setStyleSheet("QPushButton { font-size: 16pt; border-radius: 6px; color: white; background-color: black; }"
                   "QPushButton:pressed { border-radius: 6px; background-color: #00D5FF; }");
 
-    stacked = new QStackedLayout(this);
+    QVBoxLayout *vbox = new QVBoxLayout(this);
+
+    QHBoxLayout *hbox = new QHBoxLayout();
+    vbox->addLayout(hbox, 0);
+
+    for (int i = 0; i < MAX_PREDICTION; ++i) {
+        QLabel *label = new QLabel();
+        predictLabel.append(label);
+        hbox->addWidget(label);
+    }
+    hbox->addStretch(1);
+
+    stacked = new QStackedLayout();
+    vbox->addLayout(stacked, 1);
 
     thai = new JKeyboardLayout(this, &thaiKeys);
-    stacked->addWidget(thai);
-
     thaiShifted = new JKeyboardLayout(this, &thaiShiftedKeys);
-    stacked->addWidget(thaiShifted);
-
     qwerty = new JKeyboardLayout(this, &qwertyKeys);
-    stacked->addWidget(qwerty);
-
     qwertyShifted = new JKeyboardLayout(this, &qwertyShiftedKeys);
+
+    stacked->addWidget(thai);
+    stacked->addWidget(thaiShifted);
+    stacked->addWidget(qwerty);
     stacked->addWidget(qwertyShifted);
 
     connect(&holdTimer, SIGNAL(timeout()), this, SLOT(holdTimeout()));
@@ -384,11 +399,36 @@ void JKeyboard::setShift(bool b)
     }
 }
 
+void JKeyboard::updatePrediction()
+{
+    if (composeStr.length() == 0) {
+        for (int i = 1; i < MAX_PREDICTION; ++i)
+            predictLabel.at(i)->clear();
+    }
+
+    QSqlQuery q(QString("select word from words where word like '%1%%'")
+                .arg(composeStr), dictDb);
+
+    predictLabel.at(0)->setText(composeStr);
+
+    for (int i = 1; i < MAX_PREDICTION; ++i) {
+        QLabel *l = predictLabel.at(i);
+
+        if (q.next())
+            l->setText(q.value(0).toString());
+        else
+            l->clear();
+    }
+    q.clear();
+}
+
 void JKeyboard::processKeyInput(JKey *key, bool held)
 {
     QObject *receiver = QApplication::focusWidget();
+    int keyCode = key->getKeyCode(held);
+    QString keyText = key->getText(held);
 
-    switch (key->getKeyCode(held)) {
+    switch (keyCode) {
     case Qt::Key_Mode_switch:
         shiftLocked = false;
         if (currentLang == ENGLISH)
@@ -406,26 +446,39 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
         else
             shiftLocked = false;
         setShift(!shifted);
+
+        composeStr.clear();
+        updatePrediction();
         break;
 
     case Qt::Key_Return:
-        if (key->getKeyCode(held) && receiver) {
-            QKeyEvent event(QEvent::KeyPress, key->getKeyCode(held),
-                            Qt::NoModifier, "\n");
+        if (receiver) {
+            QKeyEvent event(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier, "\n");
             QApplication::sendEvent(receiver, &event);
         }
+
+        composeStr.clear();
+        updatePrediction();
         break;
 
     default:
         if (held && key->getText(held).isEmpty())
             held = false;
 
-        if ((key->getKeyCode(held) != 0 || !key->getText(held).isEmpty())
-                && receiver) {
-            QKeyEvent event(QEvent::KeyPress, key->getKeyCode(held),
-                            Qt::NoModifier, key->getText(held));
+        if ((keyCode != 0 || !key->getText(held).isEmpty()) && receiver) {
+            QKeyEvent event(QEvent::KeyPress, keyCode,
+                            Qt::NoModifier, keyText);
             QApplication::sendEvent(receiver, &event);
+
+            if (keyCode == Qt::Key_Backspace)
+                composeStr.remove(composeStr.length() - 1, 1);
+            else if (keyCode == Qt::Key_Space)
+                composeStr.clear();
+            else
+                composeStr.append(keyText);
+            updatePrediction();
         }
+
         if (!shiftLocked)
             setShift(false);
         break;
