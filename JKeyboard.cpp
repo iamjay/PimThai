@@ -376,7 +376,7 @@ JKeyboard::JKeyboard(QWidget *parent)
         QPushButton *button = new QPushButton();
 
         button->setFocusPolicy(Qt::NoFocus);
-        button->setStyleSheet("font-size: 14pt; border-radius: 4px; border: 1px solid orange; color: orange; padding: 6px; margin: 0px;");
+        button->setStyleSheet("font-size: 14pt; border-radius: 4px; border: 1px solid orange; color: darkorange; padding: 6px; margin: 0px;");
         hbox->addWidget(button);
 
         predictButton.append(button);
