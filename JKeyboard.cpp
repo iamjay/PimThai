@@ -370,6 +370,7 @@ JKeyboard::JKeyboard(QWidget *parent)
     scroll->setStyleSheet("background-color: black; margin: 0px; padding: 0px; padding-left: 6px;");
 
     QVBoxLayout *vbox = new QVBoxLayout(this);
+    vbox->setMargin(4);
     vbox->addWidget(scroll, 0);
 
     for (int i = 0; i < MAX_PREDICTION; ++i) {
