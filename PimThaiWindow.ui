@@ -47,6 +47,19 @@
        </spacer>
       </item>
       <item>
+       <widget class="QCheckBox" name="predictionButton">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Prediction</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="copyButton">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
