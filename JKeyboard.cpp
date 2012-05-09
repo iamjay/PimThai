@@ -45,10 +45,9 @@ static KeyData qwerty3[] = {
 };
 
 static KeyData qwerty4[] = {
-    { 2, -1, 0, "+!=", 0, 0, 0 },
     { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
     { 2, Qt::Key_Comma, Qt::Key_Minus, ",", "-", 0, 0 },
-    { 10, Qt::Key_Space, 0, " ", 0, 0, 0 },
+    { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
     { 2, Qt::Key_Period, Qt::Key_Apostrophe, ".", "'", 0, 0 },
     { 2, Qt::Key_Return, Qt::Key_Return, "Enter", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
@@ -97,10 +96,9 @@ static KeyData qwertyShifted3[] = {
 };
 
 static KeyData qwertyShifted4[] = {
-    { 2, -1, 0, "+!=", 0, 0, 0 },
     { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0 },
-    { 10, Qt::Key_Space, 0, " ", 0, 0, 0 },
+    { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
     { 2, Qt::Key_Apostrophe, 0, "'", 0, 0, 0 },
     { 2, Qt::Key_Return, Qt::Key_Return, "Enter", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
@@ -169,10 +167,9 @@ static KeyData thai4[] = {
 };
 
 static KeyData thai5[] = {
-    { 2, -1, 0, "+!=", 0, 0, 0 },
     { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
     { 2, Qt::Key_Comma, 0, ",", "ๆ", 0, 0 },
-    { 10, Qt::Key_Space, 0, " ", 0, 0, 0 },
+    { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
     { 2, Qt::Key_Apostrophe, Qt::Key_Minus, ".", "-", 0, 0 },
     { 2, Qt::Key_Return, Qt::Key_Return, "Enter", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
@@ -237,10 +234,9 @@ static KeyData thaiShifted4[] = {
 };
 
 static KeyData thaiShifted5[] = {
-    { 2, -1, 0, "+!=", 0, 0, 0 },
     { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
     { 2, 0, 0, "ๆ", 0, 0, 0 },
-    { 10, Qt::Key_Space, 0, " ", 0, 0, 0 },
+    { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0 },
     { 2, Qt::Key_Return, Qt::Key_Return, "Enter", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
@@ -361,9 +357,9 @@ JKeyboard::JKeyboard(QWidget *parent)
                   "QPushButton#key:pressed { border-radius: 6px; background-color: #00D5FF; }");
 
     QHBoxLayout *hbox = new QHBoxLayout();
+    hbox->setContentsMargins(0, 0, 0, 0);
     QWidget *w = new QWidget();
     w->setLayout(hbox);
-    w->setStyleSheet("margin: 0px; padding: 0px;");
 
     QScrollArea *scroll = new QScrollArea();
     scroll->setWidget(w);
@@ -380,7 +376,7 @@ JKeyboard::JKeyboard(QWidget *parent)
         QPushButton *button = new QPushButton();
 
         button->setFocusPolicy(Qt::NoFocus);
-        button->setStyleSheet("font-size: 12pt; border: 0px; border-right: 1px solid orange; color: orange; padding-right: 6px;");
+        button->setStyleSheet("font-size: 14pt; border-radius: 4px; border: 1px solid orange; color: orange; padding: 6px; margin: 0px;");
         hbox->addWidget(button);
 
         predictButton.append(button);
@@ -431,8 +427,8 @@ void JKeyboard::updatePrediction()
         return;
     }
 
-    QSqlQuery q(QString("select word from words where word like '%1%%'")
-                .arg(composeStr), dictDb);
+    QSqlQuery q(QString("select word, freq from words where word like '%1%%' order by freq desc limit %2")
+                .arg(composeStr).arg(MAX_PREDICTION), dictDb);
 
     QPushButton *button = predictButton.at(0);
     button->setText(composeStr);
