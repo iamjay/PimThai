@@ -69,7 +69,7 @@ public:
 
 private:
     enum {
-        MAX_PREDICTION = 20
+        MAX_PREDICTION = 16
     };
 
     enum {
