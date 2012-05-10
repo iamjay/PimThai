@@ -5,6 +5,8 @@
 
 #include "ui_PimThaiWindow.h"
 
+#include "JKeyboard.h"
+
 class PimThaiWindow : public QMainWindow,
     private Ui::PimThaiWindow
 {
@@ -12,6 +14,9 @@ class PimThaiWindow : public QMainWindow,
 
 public:
     PimThaiWindow(QWidget *parent = 0);
+
+protected:
+    JKeyboard *keyboard;
 
 private slots:
     void copyToClipboard();

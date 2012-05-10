@@ -11,7 +11,8 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupUi(this);
-    JKeyboard *keyboard = new JKeyboard();
+
+    keyboard = new JKeyboard();
     centralwidget->layout()->addWidget(keyboard);
 
     QEvent event(QEvent::CloseSoftwareInputPanel);
@@ -21,6 +22,7 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     setFocusProxy(textEdit);
 
     connect(copyButton, SIGNAL(clicked()), this, SLOT(copyToClipboard()));
+    connect(predictButton, SIGNAL(toggled(bool)), keyboard, SLOT(predictToggleClicked(bool)));
 }
 
 void PimThaiWindow::copyToClipboard()

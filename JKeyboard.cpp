@@ -344,12 +344,13 @@ JKeyboard::JKeyboard(QWidget *parent)
     currentLang = THAI;
     shifted = false;
     shiftLocked = false;
+    predictionEnabled = false;
 
     dictDb = QSqlDatabase::addDatabase("QSQLITE");
 #if __QNX__
     dictDb.setDatabaseName("app/native/dict.db");
 #else
-    dictDb.setDatabaseName("/home/jay/blackberry/PimThai/dict.db");
+    dictDb.setDatabaseName("/home/jay/Jay/Programming/BlackBerry/PimThai/dict.db");
 #endif
     dictDb.open();
 
@@ -361,17 +362,17 @@ JKeyboard::JKeyboard(QWidget *parent)
     QWidget *w = new QWidget();
     w->setLayout(hbox);
 
-    QScrollArea *scroll = new QScrollArea();
-    scroll->setWidget(w);
-    scroll->setWidgetResizable(true);
-    scroll->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scroll->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    scroll->setFocusPolicy(Qt::NoFocus);
-    scroll->setStyleSheet("background-color: black; margin: 0px; padding: 0px; padding-left: 6px;");
+    predictionPanel = new QScrollArea();
+    predictionPanel->setWidget(w);
+    predictionPanel->setWidgetResizable(true);
+    predictionPanel->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    predictionPanel->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    predictionPanel->setFocusPolicy(Qt::NoFocus);
+    predictionPanel->setStyleSheet("background-color: black; margin: 0px; padding: 0px; padding-left: 6px;");
 
     QVBoxLayout *vbox = new QVBoxLayout(this);
     vbox->setMargin(4);
-    vbox->addWidget(scroll, 0);
+    vbox->addWidget(predictionPanel, 0);
 
     for (int i = 0; i < MAX_PREDICTION; ++i) {
         QPushButton *button = new QPushButton();
@@ -381,7 +382,7 @@ JKeyboard::JKeyboard(QWidget *parent)
         hbox->addWidget(button);
 
         predictButton.append(button);
-        connect(button, SIGNAL(clicked()), this, SLOT(predictButtonClicked()));
+        connect(button, SIGNAL(clicked()), this, SLOT(predictWordClicked()));
     }
     hbox->addStretch(1);
 
@@ -401,6 +402,7 @@ JKeyboard::JKeyboard(QWidget *parent)
     connect(&holdTimer, SIGNAL(timeout()), this, SLOT(holdTimeout()));
 
     setShift(shifted);
+    predictToggleClicked(predictionEnabled);
     updatePrediction();
 }
 
@@ -422,6 +424,9 @@ void JKeyboard::setShift(bool b)
 
 void JKeyboard::updatePrediction()
 {
+    if (!predictionEnabled)
+        return;
+
     if (composeStr.length() == 0) {
         for (int i = 0; i < MAX_PREDICTION; ++i)
             predictButton.at(i)->hide();
@@ -499,13 +504,15 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
             QKeyEvent event(QEvent::KeyPress, keyCode, Qt::NoModifier, keyText);
             QApplication::sendEvent(receiver, &event);
 
-            if (keyCode == Qt::Key_Backspace)
-                composeStr.remove(composeStr.length() - 1, 1);
-            else if (keyCode == Qt::Key_Space)
-                composeStr.clear();
-            else
-                composeStr.append(keyText);
-            updatePrediction();
+            if (predictionEnabled) {
+                if (keyCode == Qt::Key_Backspace)
+                    composeStr.remove(composeStr.length() - 1, 1);
+                else if (keyCode == Qt::Key_Space)
+                    composeStr.clear();
+                else
+                    composeStr.append(keyText);
+                updatePrediction();
+            }
         }
 
         if (!shiftLocked)
@@ -541,7 +548,7 @@ void JKeyboard::holdTimeout()
         holdTimer.start(200);
 }
 
-void JKeyboard::predictButtonClicked()
+void JKeyboard::predictWordClicked()
 {
     QObject *receiver = QApplication::focusWidget();
 
@@ -559,4 +566,15 @@ void JKeyboard::predictButtonClicked()
     shifted = false;
     shiftLocked = false;
     setShift(shifted);
+}
+
+void JKeyboard::predictToggleClicked(bool enabled)
+{
+    predictionEnabled = enabled;
+    predictionPanel->setVisible(enabled);
+
+    if (enabled) {
+        composeStr.clear();
+        updatePrediction();
+    }
 }

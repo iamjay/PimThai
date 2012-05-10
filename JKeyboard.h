@@ -92,6 +92,8 @@ private:
     JKey *holdKey;
     QTimer holdTimer;
 
+    bool predictionEnabled;
+    QScrollArea *predictionPanel;
     QString composeStr;
 
     void setShift(bool b);
@@ -102,7 +104,8 @@ public slots:
     void keyPressed();
     void keyReleased();
     void holdTimeout();
-    void predictButtonClicked();
+    void predictWordClicked();
+    void predictToggleClicked(bool enabled);
 };
 
 #endif
