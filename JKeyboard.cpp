@@ -406,6 +406,12 @@ JKeyboard::JKeyboard(QWidget *parent)
     updatePrediction();
 }
 
+void JKeyboard::clearCompose()
+{
+    composeStr.clear();
+    updatePrediction();
+}
+
 void JKeyboard::setShift(bool b)
 {
     shifted = b;

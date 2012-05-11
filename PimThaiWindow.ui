@@ -27,12 +27,64 @@
        <number>9</number>
       </property>
       <property name="margin">
-       <number>9</number>
+       <number>4</number>
       </property>
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
          <string>PimThai</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buf0Button">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>1</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buf1Button">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>2</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buf2Button">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>3</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buf3Button">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>4</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -66,6 +118,16 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="clearButton">
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
+        </property>
+        <property name="text">
+         <string>Clear</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="copyButton">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
@@ -85,7 +147,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">margin: 9px;</string>
+       <string notr="true">margin: 2px;</string>
       </property>
      </widget>
     </item>

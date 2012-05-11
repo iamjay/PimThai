@@ -66,6 +66,7 @@ class JKeyboard : public QWidget
 
 public:
     JKeyboard(QWidget *parent = 0);
+    void clearCompose();
 
 private:
     enum {
