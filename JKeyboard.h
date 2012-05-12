@@ -4,28 +4,7 @@
 #include <QtGui>
 #include <QtSql>
 
-struct KeyData
-{
-    int width;
-    int keyCode;
-    int altKeyCode;
-    const char *text;
-    const char *altText;
-    int offset;
-    int altOffset;
-};
-
-struct KeyLayout
-{
-    int numRow;
-    KeyData **rows;
-
-    KeyLayout(int numRow, KeyData **rows)
-    {
-        this->numRow = numRow;
-        this->rows = rows;
-    }
-};
+#include "KeyLayout.h"
 
 class JKeyboard;
 

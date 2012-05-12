@@ -13,12 +13,14 @@ SOURCES += \
     main.cpp \
     JKeyboard.cpp \
     PimThaiWindow.cpp \
-    JDummyInputContext.cpp
+    JDummyInputContext.cpp \
+    KeyLayout.cpp
 
 HEADERS += \
     JKeyboard.h \
     PimThaiWindow.h \
-    JDummyInputContext.h
+    JDummyInputContext.h \
+    KeyLayout.h
 
 FORMS += \
     PimThaiWindow.ui
