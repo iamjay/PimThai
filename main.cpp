@@ -11,11 +11,9 @@ int main(int argc, char *argv[])
 #if __QNX__
     QFontDatabase::addApplicationFont("app/native/fonts/Garuda.ttf");
 #else
-    QFontDatabase::addApplicationFont("/home/jay/Jay/Programming/BlackBerry/PimThai/Garuda.ttf");
+    QFontDatabase::addApplicationFont("Garuda.ttf");
 #endif
 
-    QFontDatabase fdb;
-    a.setFont(fdb.font("Garudax", "normal", 14));
     a.setInputContext(new JDummyInputContext());
 
     PimThaiWindow window;

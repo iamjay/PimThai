@@ -262,6 +262,9 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     if (codec == 0)
         codec = QTextCodec::codecForName("TIS-620");
 
+    QFontDatabase fdb;
+    setFont(fdb.font("Garudax", "normal", 14));
+
     text = QString::fromAscii(codec->fromUnicode(QString::fromUtf8(keyData->text)));
     if (keyData->altOffset)
         altText = " ";
@@ -350,7 +353,7 @@ JKeyboard::JKeyboard(QWidget *parent)
 #if __QNX__
     dictDb.setDatabaseName("app/native/dict.db");
 #else
-    dictDb.setDatabaseName("/home/jay/Jay/Programming/BlackBerry/PimThai/dict.db");
+    dictDb.setDatabaseName("dict.db");
 #endif
     dictDb.open();
 

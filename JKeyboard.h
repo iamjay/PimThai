@@ -41,6 +41,7 @@ public:
 
 protected:
     static QTextCodec *codec;
+    static QFont *font;
 
     const KeyData *keyData;
     QString text;
