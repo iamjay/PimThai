@@ -1,6 +1,7 @@
 #include <QtCore>
 #include <QtSql>
 
+#include "JDummyInputContext.h"
 #include "PimThaiWindow.h"
 
 int main(int argc, char *argv[])
@@ -15,6 +16,7 @@ int main(int argc, char *argv[])
 
     QFontDatabase fdb;
     a.setFont(fdb.font("Garudax", "normal", 14));
+    a.setInputContext(new JDummyInputContext());
 
     PimThaiWindow window;
 #if __QNX__

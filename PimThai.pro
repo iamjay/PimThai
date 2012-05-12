@@ -12,11 +12,13 @@ INCLUDEPATH += .
 SOURCES += \
     main.cpp \
     JKeyboard.cpp \
-    PimThaiWindow.cpp
+    PimThaiWindow.cpp \
+    JDummyInputContext.cpp
 
 HEADERS += \
     JKeyboard.h \
-    PimThaiWindow.h
+    PimThaiWindow.h \
+    JDummyInputContext.h
 
 FORMS += \
     PimThaiWindow.ui

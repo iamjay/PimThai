@@ -15,9 +15,6 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     keyboard = new JKeyboard();
     centralwidget->layout()->addWidget(keyboard);
 
-    QEvent event(QEvent::CloseSoftwareInputPanel);
-    QApplication::sendEvent(textEdit, &event);
-
     textEdit->setFocus();
     setFocusProxy(textEdit);
 
