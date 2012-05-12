@@ -21,25 +21,27 @@ HEADERS += \
 FORMS += \
     PimThaiWindow.ui
 
-blackberry-armv7le-g++ {
+OTHER_FILES += \
+    bar-descriptor.xml
+
+blackberry-armv7le-qcc {
     LIBS += -lclipboard
 }
 
 package.target = $${TARGET}.bar
-package.depends = $$TARGET
+package.depends = $${TARGET} bar-descriptor.xml
 package.commands = blackberry-nativepackager \
     -devMode -debugToken debugtoken1.bar \
-    -package $${TARGET}.bar -arg -platform -arg blackberry \
-    bar-descriptor.xml $$TARGET \
-    -e icon.png icon.png \
+    -arg -platform -arg blackberry \
+    -package $${TARGET}.bar \
+    bar-descriptor.xml PimThai icon.png \
+    dict.db -e Garuda.ttf fonts/Garuda.ttf \
     -e ${QTDIR}/lib/libQtCore.so.4 lib/libQtCore.so.4 \
     -e ${QTDIR}/lib/libQtGui.so.4 lib/libQtGui.so.4 \
     -e ${QTDIR}/lib/libQtOpenGL.so.4 lib/libQtOpenGL.so.4 \
     -e ${QTDIR}/lib/libQtNetwork.so.4 lib/libQtNetwork.so.4 \
-    -e ${QTDIR}/plugins/platforms/libblackberry.so lib/platforms/libblackberry.so \
     -e ${QTDIR}/lib/libQtSql.so.4 lib/libQtSql.so.4 \
-    -e Garuda.ttf fonts/Garuda.ttf \
-    -e dict.db dict.db
+    -e ${QTDIR}/plugins/platforms/libblackberry.so lib/platforms/libblackberry.so
 
 QMAKE_EXTRA_TARGETS += package
 

@@ -258,7 +258,7 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     : QPushButton(parent)
     , keyData(key)
 {
-#if __QNX__
+#if 1
     if (codec == 0)
         codec = QTextCodec::codecForName("TIS-620");
 

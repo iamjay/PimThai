@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<qnx xmlns="http://www.qnx.com/schemas/application/1.0">
-
+<qnx>
     <id>com.kanokgems.PimThai</id>
     <name>PimThai</name>
     <versionNumber>1.0.0</versionNumber>
@@ -16,36 +15,23 @@
         <transparent>false</transparent>
     </initialWindow>
 
-    <configuration id="com.qnx.qcc.toolChain.255862546" name="Default">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7-g/PimThai" entry="true" type="Qnx/Elf">PimThai</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.toolChain.1626551880" name="Device-Debug">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7-g/PimThai" entry="true" type="Qnx/Elf">PimThai</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.toolChain.1753209090" name="Device-Release">
-       <platformArchitecture>armle-v7</platformArchitecture>
-       <asset path="arm/o.le-v7/PimThai" entry="true" type="Qnx/Elf">PimThai</asset>
-    </configuration>
-    <configuration id="com.qnx.qcc.toolChain.1065779403" name="Simulator-Debug">
-       <platformArchitecture>x86</platformArchitecture>
-       <asset path="x86/o-g/PimThai" entry="true" type="Qnx/Elf">PimThai</asset>
-    </configuration>
-    
-    <icon>
-        <image>icon.png</image>
-    </icon>
-    
-    <!--  The splash screen that will appear when your application is launching. Should be 1024x600. -->
-    <!-- <splashscreen></splashscreen> -->
-
-    <action system="true">run_native</action>
-
     <autoOrients>false</autoOrients>
     <aspectRatio>landscape</aspectRatio>
 
     <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
     <env var="QT_QPA_PLATFORM_PLUGIN_PATH" value="app/native/lib/platforms" />
-    <env var="QT_QPA_FONTDIR" value="app/native/fonts" />
+
+    <configuration name="Default">
+       <platformArchitecture>armle-v7</platformArchitecture>
+       <asset entry="true" type="Qnx/Elf">PimThai</asset>
+    </configuration>
+
+    <icon>
+        <image>icon.png</image>
+    </icon>
+
+    <!--  The splash screen that will appear when your application is launching. Should be 1024x600. -->
+    <!-- <splashscreen></splashscreen> -->
+
+    <action system="true">run_native</action>
 </qnx>
