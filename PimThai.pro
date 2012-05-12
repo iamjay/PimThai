@@ -31,13 +31,15 @@ blackberry-armv7le-qcc {
 }
 
 package.target = $${TARGET}.bar
-package.depends = $${TARGET} bar-descriptor.xml
+package.depends = $${TARGET} $${PWD}/bar-descriptor.xml
 package.commands = blackberry-nativepackager \
-    -devMode -debugToken debugtoken1.bar \
+    -devMode -debugToken $${PWD}/debugtoken1.bar \
     -arg -platform -arg blackberry \
     -package $${TARGET}.bar \
-    bar-descriptor.xml PimThai icon.png \
-    dict.db -e Garuda.ttf fonts/Garuda.ttf \
+    $${PWD}/bar-descriptor.xml PimThai \
+    -e $${PWD}/icon.png icon.png \
+    -e $${PWD}/dict.db dict.db \
+    -e $${PWD}/Garuda.ttf fonts/Garuda.ttf \
     -e ${QTDIR}/lib/libQtCore.so.4 lib/libQtCore.so.4 \
     -e ${QTDIR}/lib/libQtGui.so.4 lib/libQtGui.so.4 \
     -e ${QTDIR}/lib/libQtOpenGL.so.4 lib/libQtOpenGL.so.4 \
