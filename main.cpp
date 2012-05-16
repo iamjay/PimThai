@@ -14,6 +14,8 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont("Garuda.ttf");
 #endif
 
+    a.setObjectName("kanokgems");
+    a.setApplicationName("PimThai");
     a.setInputContext(new JDummyInputContext());
 
     PimThaiWindow window;

@@ -99,7 +99,7 @@ JKeyboard::JKeyboard(QWidget *parent)
     shiftLocked = false;
     predictionEnabled = false;
 
-    dictDb = QSqlDatabase::addDatabase("QSQLITE");
+    dictDb = QSqlDatabase::addDatabase("QSQLITE", "dict");
 #if __QNX__
     dictDb.setDatabaseName("app/native/dict.db");
 #else
