@@ -52,6 +52,11 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
 
 PimThaiWindow::~PimThaiWindow()
 {
+    saveSettings();
+}
+
+void PimThaiWindow::saveSettings()
+{
     buffers[activeBuffer] = textEdit->toPlainText();
 
     settingsDb.setValue(activeBufferKey, activeBuffer);
@@ -79,8 +84,6 @@ void PimThaiWindow::copyToClipboard()
 
 void PimThaiWindow::updateBuffer(QPushButton *button)
 {
-    buffers[activeBuffer] = textEdit->toPlainText();
-
     for (int i = 0; i < MAX_BUFFER; ++i) {
         if (button == bufferButtons[i]) {
             activeBuffer = i;
@@ -95,6 +98,7 @@ void PimThaiWindow::updateBuffer(QPushButton *button)
 
 void PimThaiWindow::bufferButtonClicked()
 {
+    buffers[activeBuffer] = textEdit->toPlainText();
     updateBuffer(static_cast<QPushButton *>(QObject::sender()));
 }
 

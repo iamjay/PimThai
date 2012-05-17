@@ -22,6 +22,7 @@ public:
 
     PimThaiWindow(QWidget *parent = 0);
     ~PimThaiWindow();
+    void saveSettings();
 
 protected:
     enum {
