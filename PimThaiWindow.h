@@ -21,6 +21,7 @@ public:
     static const char *predictionEnabledKey;
 
     PimThaiWindow(QWidget *parent = 0);
+    ~PimThaiWindow();
 
 protected:
     enum {
@@ -34,7 +35,6 @@ protected:
     QPushButton *bufferButtons[MAX_BUFFER];
     bool predictionEnabled;
 
-    void closeEvent(QCloseEvent *event);
     void updateBuffer(QPushButton *button);
 
 private slots:

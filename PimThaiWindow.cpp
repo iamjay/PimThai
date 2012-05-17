@@ -50,6 +50,18 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     predictToggleClicked(predictionEnabled);
 }
 
+PimThaiWindow::~PimThaiWindow()
+{
+    buffers[activeBuffer] = textEdit->toPlainText();
+
+    settingsDb.setValue(activeBufferKey, activeBuffer);
+    settingsDb.setValue(buffer0Key, buffers[0]);
+    settingsDb.setValue(buffer1Key, buffers[1]);
+    settingsDb.setValue(buffer2Key, buffers[2]);
+    settingsDb.setValue(buffer3Key, buffers[3]);
+    settingsDb.setValue(predictionEnabledKey, predictionEnabled);
+}
+
 void PimThaiWindow::clearBuffer()
 {
     textEdit->clear();
@@ -60,21 +72,9 @@ void PimThaiWindow::copyToClipboard()
 {
     const QByteArray s = textEdit->toPlainText().toUtf8();
 
-#if __QNX__
+#ifdef __QNX__
     set_clipboard_data("text/plain", s.size(), s.constData());
 #endif
-}
-
-void PimThaiWindow::closeEvent(QCloseEvent *event)
-{
-    settingsDb.setValue(activeBufferKey, activeBuffer);
-    settingsDb.setValue(buffer0Key, buffers[0]);
-    settingsDb.setValue(buffer1Key, buffers[1]);
-    settingsDb.setValue(buffer2Key, buffers[2]);
-    settingsDb.setValue(buffer3Key, buffers[3]);
-    settingsDb.setValue(predictionEnabledKey, predictionEnabled);
-
-    QMainWindow::closeEvent(event);
 }
 
 void PimThaiWindow::updateBuffer(QPushButton *button)
