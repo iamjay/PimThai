@@ -14,6 +14,12 @@ const char *PimThaiWindow::buffer2Key = "buffer2";
 const char *PimThaiWindow::buffer3Key = "buffer3";
 const char *PimThaiWindow::predictionEnabledKey = "predict";
 
+AboutDialog::AboutDialog(QWidget *parent)
+    : QDialog(parent)
+{
+    setupUi(this);
+}
+
 PimThaiWindow::PimThaiWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -30,6 +36,7 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     bufferButtons[2] = buf2Button;
     bufferButtons[3] = buf3Button;
 
+    connect(aboutButton, SIGNAL(clicked()), this, SLOT(aboutClicked()));
     connect(copyButton, SIGNAL(clicked()), this, SLOT(copyToClipboard()));
     connect(clearButton, SIGNAL(clicked()), this, SLOT(clearBuffer()));
     connect(predictButton, SIGNAL(toggled(bool)), this, SLOT(predictToggleClicked(bool)));
@@ -65,6 +72,13 @@ void PimThaiWindow::saveSettings()
     settingsDb.setValue(buffer2Key, buffers[2]);
     settingsDb.setValue(buffer3Key, buffers[3]);
     settingsDb.setValue(predictionEnabledKey, predictionEnabled);
+}
+
+void PimThaiWindow::aboutClicked()
+{
+    AboutDialog d;
+    d.setModal(true);
+    d.exec();
 }
 
 void PimThaiWindow::clearBuffer()

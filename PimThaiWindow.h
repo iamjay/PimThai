@@ -4,11 +4,21 @@
 #include <QMainWindow>
 
 #include "ui_PimThaiWindow.h"
+#include "ui_About.h"
 
 #include "JKeyboard.h"
 
+class AboutDialog : public QDialog,
+        private Ui::About
+{
+    Q_OBJECT
+
+public:
+    AboutDialog(QWidget *parent = 0);
+};
+
 class PimThaiWindow : public QMainWindow,
-    private Ui::PimThaiWindow
+        private Ui::PimThaiWindow
 {
     Q_OBJECT
 
@@ -39,6 +49,7 @@ protected:
     void updateBuffer(QPushButton *button);
 
 private slots:
+    void aboutClicked();
     void clearBuffer();
     void copyToClipboard();
     void bufferButtonClicked();

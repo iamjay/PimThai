@@ -23,7 +23,8 @@ HEADERS += \
     KeyLayout.h
 
 FORMS += \
-    PimThaiWindow.ui
+    PimThaiWindow.ui \
+    About.ui
 
 OTHER_FILES += \
     bar-descriptor.xml
