@@ -1,10 +1,12 @@
 #include <QtGui>
 
-#ifdef __QNX__
+#if __QNX__
 #include <clipboard/clipboard.h>
 #endif
 
 #include "PimThaiWindow.h"
+
+#include "AboutDialog.h"
 #include "JKeyboard.h"
 
 const char *PimThaiWindow::activeBufferKey = "activeBuffer";
@@ -13,12 +15,6 @@ const char *PimThaiWindow::buffer1Key = "buffer1";
 const char *PimThaiWindow::buffer2Key = "buffer2";
 const char *PimThaiWindow::buffer3Key = "buffer3";
 const char *PimThaiWindow::predictionEnabledKey = "predict";
-
-AboutDialog::AboutDialog(QWidget *parent)
-    : QDialog(parent)
-{
-    setupUi(this);
-}
 
 PimThaiWindow::PimThaiWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -78,6 +74,9 @@ void PimThaiWindow::aboutClicked()
 {
     AboutDialog d;
     d.setModal(true);
+#if __QNX__
+    d.showMaximized();
+#endif
     d.exec();
 }
 
@@ -91,7 +90,7 @@ void PimThaiWindow::copyToClipboard()
 {
     const QByteArray s = textEdit->toPlainText().toUtf8();
 
-#ifdef __QNX__
+#if __QNX__
     set_clipboard_data("text/plain", s.size(), s.constData());
 #endif
 }

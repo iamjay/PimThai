@@ -4,18 +4,8 @@
 #include <QMainWindow>
 
 #include "ui_PimThaiWindow.h"
-#include "ui_About.h"
 
 #include "JKeyboard.h"
-
-class AboutDialog : public QDialog,
-        private Ui::About
-{
-    Q_OBJECT
-
-public:
-    AboutDialog(QWidget *parent = 0);
-};
 
 class PimThaiWindow : public QMainWindow,
         private Ui::PimThaiWindow

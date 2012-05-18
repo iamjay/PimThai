@@ -14,33 +14,45 @@ SOURCES += \
     JKeyboard.cpp \
     PimThaiWindow.cpp \
     JDummyInputContext.cpp \
-    KeyLayout.cpp
+    KeyLayout.cpp \
+    AboutDialog.cpp
 
 HEADERS += \
     JKeyboard.h \
     PimThaiWindow.h \
     JDummyInputContext.h \
-    KeyLayout.h
+    KeyLayout.h \
+    AboutDialog.h
 
 FORMS += \
     PimThaiWindow.ui \
     About.ui
 
 OTHER_FILES += \
-    bar-descriptor.xml
+    bar-descriptor.xml \
+    icon.png \
+    dict.png \
+    Garuda.ttf \
+    splash.png
 
 blackberry-armv7le-qcc {
     LIBS += -lclipboard
 }
 
 package.target = $${TARGET}.bar
-package.depends = $${TARGET} $${PWD}/bar-descriptor.xml
+package.depends = \
+    $${TARGET} $${PWD}/bar-descriptor.xml \
+    $${TARGET} $${PWD}/icon.png \
+    $${TARGET} $${PWD}/dict.db \
+    $${TARGET} $${PWD}/Garuda.ttf \
+    $${TARGET} $${PWD}/splash.png
 package.commands = blackberry-nativepackager \
     -devMode -debugToken $${PWD}/debugtoken1.bar \
     -arg -platform -arg blackberry \
     -package $${TARGET}.bar \
     $${PWD}/bar-descriptor.xml PimThai \
     -e $${PWD}/icon.png icon.png \
+    -e $${PWD}/splash.png splash.png \
     -e $${PWD}/dict.db dict.db \
     -e $${PWD}/Garuda.ttf fonts/Garuda.ttf \
     -e ${QTDIR}/lib/libQtCore.so.4 lib/libQtCore.so.4 \

@@ -4,7 +4,7 @@
     <name>PimThai</name>
     <versionNumber>1.0.0</versionNumber>
     <buildId>1</buildId>
-    <description>PimThai - The Thai Keyboard for BlackBerry Playbook</description>
+    <description>PimThai - A Thai Keyboard for BlackBerry Playbook</description>
     <copyright>Copyright 2012 Pathompong Puengrostham (pathompong@gmail.com)</copyright>
 
     <author>Pathompong Puengrostham</author>
@@ -30,8 +30,7 @@
         <image>icon.png</image>
     </icon>
 
-    <!--  The splash screen that will appear when your application is launching. Should be 1024x600. -->
-    <!-- <splashscreen></splashscreen> -->
+    <splashscreen>splash.png</splashscreen>
 
     <action system="true">run_native</action>
 </qnx>
