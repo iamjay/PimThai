@@ -39,17 +39,8 @@ blackberry-armv7le-qcc {
     LIBS += -lclipboard
 }
 
-package.target = $${TARGET}.bar
-package.depends = \
-    $${TARGET} $${PWD}/bar-descriptor.xml \
-    $${TARGET} $${PWD}/icon.png \
-    $${TARGET} $${PWD}/dict.db \
-    $${TARGET} $${PWD}/Garuda.ttf \
-    $${TARGET} $${PWD}/splash.png
-package.commands = blackberry-nativepackager \
-    -devMode -debugToken $${PWD}/debugtoken1.bar \
+PACKAGE_OPT = \
     -arg -platform -arg blackberry \
-    -package $${TARGET}.bar \
     $${PWD}/bar-descriptor.xml PimThai \
     -e $${PWD}/icon.png icon.png \
     -e $${PWD}/splash.png splash.png \
@@ -62,6 +53,26 @@ package.commands = blackberry-nativepackager \
     -e ${QTDIR}/lib/libQtSql.so.4 lib/libQtSql.so.4 \
     -e ${QTDIR}/plugins/platforms/libblackberry.so lib/platforms/libblackberry.so
 
-QMAKE_EXTRA_TARGETS += package
+PACKAGE_DEPEND = \
+    $${TARGET} $${PWD}/bar-descriptor.xml \
+    $${TARGET} $${PWD}/icon.png \
+    $${TARGET} $${PWD}/dict.db \
+    $${TARGET} $${PWD}/Garuda.ttf \
+    $${TARGET} $${PWD}/splash.png
+
+package.target = $${TARGET}.bar
+package.depends = $${PACKAGE_DEPEND}
+package.commands = blackberry-nativepackager \
+    -devMode -debugToken $${PWD}/debugtoken1.bar \
+    -package $${TARGET}.bar \
+    $${PACKAGE_OPT}
+
+package-release.target = $${TARGET}-release.bar
+package-release.depends = $${PACKAGE_DEPEND}
+package-release.commands = blackberry-nativepackager \
+    -package $${TARGET}-release.bar \
+    $${PACKAGE_OPT}
+
+QMAKE_EXTRA_TARGETS += package package-release
 
 QMAKE_CLEAN += $${TARGET} $${TARGET}.bar
