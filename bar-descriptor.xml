@@ -2,8 +2,8 @@
 <qnx>
     <id>com.kanokgems.PimThai</id>
     <name>PimThai</name>
-    <versionNumber>1.0.0</versionNumber>
-    <buildId>1</buildId>
+    <versionNumber>1.0.0.2</versionNumber>
+    <buildId>2</buildId>
     <description>PimThai - A Thai Keyboard for BlackBerry Playbook</description>
     <copyright>Copyright 2012 Pathompong Puengrostham (pathompong@gmail.com)</copyright>
 
@@ -13,10 +13,9 @@
     <initialWindow>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
+        <aspectRatio>landscape</aspectRatio>
+        <autoOrients>false</autoOrients>
     </initialWindow>
-
-    <autoOrients>false</autoOrients>
-    <aspectRatio>landscape</aspectRatio>
 
     <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
     <env var="QT_QPA_PLATFORM_PLUGIN_PATH" value="app/native/lib/platforms" />
