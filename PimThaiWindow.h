@@ -33,10 +33,10 @@ protected:
     JKeyboard *keyboard;
     int activeBuffer;
     QString buffers[MAX_BUFFER];
-    QPushButton *bufferButtons[MAX_BUFFER];
+    QToolButton *bufferButtons[MAX_BUFFER];
     bool predictionEnabled;
 
-    void updateBuffer(QPushButton *button);
+    void updateBuffer(QToolButton *button);
 
 private slots:
     void aboutClicked();

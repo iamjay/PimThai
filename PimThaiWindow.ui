@@ -40,7 +40,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="buf0Button">
+       <widget class="QToolButton" name="buf0Button">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -53,7 +53,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="buf1Button">
+       <widget class="QToolButton" name="buf1Button">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -66,7 +66,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="buf2Button">
+       <widget class="QToolButton" name="buf2Button">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>
@@ -79,7 +79,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="buf3Button">
+       <widget class="QToolButton" name="buf3Button">
         <property name="focusPolicy">
          <enum>Qt::NoFocus</enum>
         </property>

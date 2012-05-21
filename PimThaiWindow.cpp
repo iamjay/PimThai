@@ -95,7 +95,7 @@ void PimThaiWindow::copyToClipboard()
 #endif
 }
 
-void PimThaiWindow::updateBuffer(QPushButton *button)
+void PimThaiWindow::updateBuffer(QToolButton *button)
 {
     for (int i = 0; i < MAX_BUFFER; ++i) {
         if (button == bufferButtons[i]) {
@@ -112,7 +112,7 @@ void PimThaiWindow::updateBuffer(QPushButton *button)
 void PimThaiWindow::bufferButtonClicked()
 {
     buffers[activeBuffer] = textEdit->toPlainText();
-    updateBuffer(static_cast<QPushButton *>(QObject::sender()));
+    updateBuffer(static_cast<QToolButton *>(QObject::sender()));
 }
 
 void PimThaiWindow::predictToggleClicked(bool enabled)

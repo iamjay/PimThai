@@ -3,7 +3,7 @@
     <id>com.kanokgems.PimThai</id>
     <name>PimThai</name>
     <versionNumber>1.0.0</versionNumber>
-    <buildId>2</buildId>
+    <buildId>3</buildId>
     <description>PimThai - A Thai Keyboard for BlackBerry Playbook</description>
     <copyright>Copyright 2012 Pathompong Puengrostham (pathompong@gmail.com)</copyright>
 
@@ -13,8 +13,7 @@
     <initialWindow>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
-        <aspectRatio>landscape</aspectRatio>
-        <autoOrients>false</autoOrients>
+        <autoOrients>true</autoOrients>
     </initialWindow>
 
     <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
