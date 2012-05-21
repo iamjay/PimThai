@@ -48,7 +48,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>version 1.0.0.3</string>
+          <string>version 1.0.0.4</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
