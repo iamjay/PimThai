@@ -45,7 +45,7 @@ class JKeyboard : public QWidget
     Q_OBJECT
 
 public:
-    JKeyboard(QWidget *parent = 0);
+    JKeyboard(QScrollArea *panel, QWidget *parent = 0);
     void clearCompose();
 
 private:

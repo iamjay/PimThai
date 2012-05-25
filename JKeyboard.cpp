@@ -64,7 +64,6 @@ JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
     : QWidget(parent)
 {
     QVBoxLayout *vbox = new QVBoxLayout(this);
-
     vbox->setContentsMargins(0, 0, 0, 0);
     vbox->setSpacing(2);
 
@@ -91,7 +90,7 @@ JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
     }
 }
 
-JKeyboard::JKeyboard(QWidget *parent)
+JKeyboard::JKeyboard(QScrollArea *panel, QWidget *parent)
     : QWidget(parent)
 {
     currentLang = THAI;
@@ -115,7 +114,7 @@ JKeyboard::JKeyboard(QWidget *parent)
     QWidget *w = new QWidget();
     w->setLayout(hbox);
 
-    predictionPanel = new QScrollArea();
+    predictionPanel = panel;
     predictionPanel->setWidget(w);
     predictionPanel->setWidgetResizable(true);
     predictionPanel->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -125,7 +124,6 @@ JKeyboard::JKeyboard(QWidget *parent)
 
     QVBoxLayout *vbox = new QVBoxLayout(this);
     vbox->setMargin(4);
-    vbox->addWidget(predictionPanel, 0);
 
     for (int i = 0; i < MAX_PREDICTION; ++i) {
         QPushButton *button = new QPushButton();
@@ -329,6 +327,7 @@ void JKeyboard::predictWordClicked()
 
 void JKeyboard::predictToggleClicked(bool enabled)
 {
+    hide();
     predictionEnabled = enabled;
     predictionPanel->setVisible(enabled);
 
@@ -336,4 +335,5 @@ void JKeyboard::predictToggleClicked(bool enabled)
         composeStr.clear();
         updatePrediction();
     }
+    show();
 }

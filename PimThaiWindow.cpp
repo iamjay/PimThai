@@ -21,8 +21,8 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
 {
     setupUi(this);
 
-    keyboard = new JKeyboard();
-    centralwidget->layout()->addWidget(keyboard);
+    keyboard = new JKeyboard(predictionPanel);
+    verticalLayout->addWidget(keyboard, 3);
 
     textEdit->setFocus();
     setFocusProxy(textEdit);
