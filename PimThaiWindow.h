@@ -24,6 +24,8 @@ public:
     ~PimThaiWindow();
     void saveSettings();
 
+    void resizeEvent(QResizeEvent *);
+
 protected:
     enum {
         MAX_BUFFER = 4

@@ -70,6 +70,14 @@ void PimThaiWindow::saveSettings()
     settingsDb.setValue(predictionEnabledKey, predictionEnabled);
 }
 
+void PimThaiWindow::resizeEvent(QResizeEvent *event)
+{
+    if (event->size().height() >= 1024)
+        verticalLayout->setStretchFactor(keyboard, 2);
+    else
+        verticalLayout->setStretchFactor(keyboard, 3);
+}
+
 void PimThaiWindow::aboutClicked()
 {
     AboutDialog d;
