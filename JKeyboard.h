@@ -39,13 +39,23 @@ public:
                     QWidget *parent = 0);
 };
 
+class PredictionContainer : public QScrollArea
+{
+    Q_OBJECT
+
+public:
+    PredictionContainer(QWidget * parent = 0);
+    QSize minimumSizeHint() const;
+};
+
 class JKeyboard : public QWidget
 {
     Q_OBJECT
 
 public:
-    JKeyboard(QScrollArea *panel, QWidget *parent = 0);
+    JKeyboard(QWidget *parent = 0);
     void clearCompose();
+    QWidget *getPredictionWidget() { return predictionWidget; }
 
     static QTextCodec *codec;
 
@@ -64,6 +74,7 @@ private:
     bool held;
     QSqlDatabase dictDb;
 
+    PredictionContainer *predictionWidget;
     QList<QPushButton *> predictButton;
     QStackedLayout *stacked;
     JKeyboardLayout *qwerty;
@@ -75,7 +86,6 @@ private:
     QTimer holdTimer;
 
     bool predictionEnabled;
-    QScrollArea *predictionPanel;
     QString composeStr;
 
     void setShift(bool b);

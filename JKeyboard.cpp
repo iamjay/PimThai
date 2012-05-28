@@ -87,7 +87,28 @@ JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
     }
 }
 
-JKeyboard::JKeyboard(QScrollArea *panel, QWidget *parent)
+PredictionContainer::PredictionContainer(QWidget *parent)
+    : QScrollArea(parent)
+{
+    setFocusPolicy(Qt::NoFocus);
+    setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Minimum);
+    setWidgetResizable(true);
+    setFrameShape(QFrame::NoFrame);
+    setLineWidth(0);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setStyleSheet("background-color: black; margin: 0px; padding: 0px; padding-left: 4px;");
+    setAlignment(Qt::AlignVCenter);
+}
+
+QSize PredictionContainer::minimumSizeHint() const
+{
+    QSize s = QScrollArea::minimumSizeHint();
+    s.setHeight(52);
+    return s;
+}
+
+JKeyboard::JKeyboard(QWidget *parent)
     : QWidget(parent)
 {
     if (codec == 0)
@@ -116,14 +137,15 @@ JKeyboard::JKeyboard(QScrollArea *panel, QWidget *parent)
     QWidget *w = new QWidget();
     w->setLayout(hbox);
 
-    predictionPanel = panel;
-    predictionPanel->setWidget(w);
+    predictionWidget = new PredictionContainer();
+    predictionWidget->setWidget(w);
 
     for (int i = 0; i < MAX_PREDICTION; ++i) {
         QPushButton *button = new QPushButton();
 
         button->setFocusPolicy(Qt::NoFocus);
-        button->setStyleSheet("font-family: Garudax; font-size: 14pt; border: 0px; border-right: 1px solid orange; color: darkorange; padding: 0 4px 0 4px; margin: 0px;");
+        button->setStyleSheet("font-family: Garudax; font-size: 13pt; border-radius: 4px; border: 1px solid orange; color: darkorange; padding: 3px 6px 0px 6px; margin: 0px 4px 0px 4px;");
+        button->setContentsMargins(0, 8, 0, 8);
         hbox->addWidget(button);
 
         predictButton.append(button);
@@ -325,7 +347,7 @@ void JKeyboard::predictToggleClicked(bool enabled)
 {
     hide();
     predictionEnabled = enabled;
-    predictionPanel->setVisible(enabled);
+    predictionWidget->setVisible(enabled);
 
     if (enabled) {
         composeStr.clear();
