@@ -111,25 +111,19 @@ JKeyboard::JKeyboard(QScrollArea *panel, QWidget *parent)
 
     QHBoxLayout *hbox = new QHBoxLayout();
     hbox->setContentsMargins(0, 0, 0, 0);
+    hbox->setSpacing(0);
+
     QWidget *w = new QWidget();
     w->setLayout(hbox);
 
     predictionPanel = panel;
     predictionPanel->setWidget(w);
-    predictionPanel->setWidgetResizable(true);
-    predictionPanel->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    predictionPanel->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    predictionPanel->setFocusPolicy(Qt::NoFocus);
-    predictionPanel->setStyleSheet("background-color: black; margin: 0px; padding: 0px; padding-left: 6px;");
-
-    QVBoxLayout *vbox = new QVBoxLayout(this);
-    vbox->setMargin(4);
 
     for (int i = 0; i < MAX_PREDICTION; ++i) {
         QPushButton *button = new QPushButton();
 
         button->setFocusPolicy(Qt::NoFocus);
-        button->setStyleSheet("font-family: Garudax; font-size: 14pt; border-radius: 4px; border: 1px solid orange; color: darkorange; padding: 6px; margin: 0px;");
+        button->setStyleSheet("font-family: Garudax; font-size: 14pt; border: 0px; border-right: 1px solid orange; color: darkorange; padding: 0 4px 0 4px; margin: 0px;");
         hbox->addWidget(button);
 
         predictButton.append(button);
@@ -138,6 +132,8 @@ JKeyboard::JKeyboard(QScrollArea *panel, QWidget *parent)
     hbox->addStretch(1);
 
     stacked = new QStackedLayout();
+    QVBoxLayout *vbox = new QVBoxLayout(this);
+    vbox->setMargin(4);
     vbox->addLayout(stacked, 1);
 
     thai = new JKeyboardLayout(this, &thaiKeys);
