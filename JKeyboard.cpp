@@ -2,23 +2,20 @@
 
 #include "JKeyboard.h"
 
-QTextCodec *JKey::codec = 0;
+QTextCodec *JKeyboard::codec = 0;
 
 JKey::JKey(const KeyData *key, QWidget *parent)
     : QPushButton(parent)
     , keyData(key)
 {
 #if 1
-    if (codec == 0)
-        codec = QTextCodec::codecForName("TIS-620");
-
     QFontDatabase fdb;
     setFont(fdb.font("Garudax", "normal", 14));
 
-    text = QString::fromAscii(codec->fromUnicode(QString::fromUtf8(keyData->text)));
+    text = QString::fromAscii(JKeyboard::codec->fromUnicode(QString::fromUtf8(keyData->text)));
     if (keyData->altOffset)
         altText = " ";
-    altText += QString::fromAscii(codec->fromUnicode(QString::fromUtf8(keyData->altText)));
+    altText += QString::fromAscii(JKeyboard::codec->fromUnicode(QString::fromUtf8(keyData->altText)));
 #else
     text = QString::fromUtf8(keyData->text);
     if (keyData->altOffset)
@@ -93,6 +90,9 @@ JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
 JKeyboard::JKeyboard(QScrollArea *panel, QWidget *parent)
     : QWidget(parent)
 {
+    if (codec == 0)
+        codec = QTextCodec::codecForName("TIS-620");
+
     currentLang = THAI;
     shifted = false;
     shiftLocked = false;
@@ -129,7 +129,7 @@ JKeyboard::JKeyboard(QScrollArea *panel, QWidget *parent)
         QPushButton *button = new QPushButton();
 
         button->setFocusPolicy(Qt::NoFocus);
-        button->setStyleSheet("font-size: 14pt; border-radius: 4px; border: 1px solid orange; color: darkorange; padding: 6px; margin: 0px;");
+        button->setStyleSheet("font-family: Garudax; font-size: 14pt; border-radius: 4px; border: 1px solid orange; color: darkorange; padding: 6px; margin: 0px;");
         hbox->addWidget(button);
 
         predictButton.append(button);
@@ -190,29 +190,28 @@ void JKeyboard::updatePrediction()
         return;
     }
 
+    QPushButton *button = predictButton.at(0);
+    button->setText(QString::fromAscii(JKeyboard::codec->fromUnicode(composeStr)));
+    button->show();
+
     QSqlQuery q(QString("select word, freq from words where word like '%1%%' order by freq desc limit %2")
                 .arg(composeStr).arg(MAX_PREDICTION), dictDb);
 
-    QPushButton *button = predictButton.at(0);
-    button->setText(composeStr);
-    button->show();
+    int i = 1;
+    while (q.next() && i < MAX_PREDICTION) {
+        QString s = q.value(0).toString();
 
-    for (int i = 1; i < MAX_PREDICTION; ++i) {
-        button = predictButton.at(i);
-
-        if (q.next()) {
-            QString s = q.value(0).toString();
-            if (s == composeStr) {
-                button->hide();
-            } else {
-                button->setText(s);
-                button->show();
-            }
-        } else {
-            button->hide();
+        if (s != composeStr) {
+            button = predictButton.at(i);
+            button->setText(QString::fromAscii(JKeyboard::codec->fromUnicode(s)));
+            button->show();
+            ++i;
         }
     }
     q.clear();
+
+    for ( ; i < MAX_PREDICTION; ++i)
+        predictButton.at(i)->hide();
 }
 
 void JKeyboard::processKeyInput(JKey *key, bool held)

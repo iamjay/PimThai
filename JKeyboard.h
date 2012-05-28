@@ -19,7 +19,6 @@ public:
     const QString &getText(bool alt) const;
 
 protected:
-    static QTextCodec *codec;
     static QFont *font;
 
     const KeyData *keyData;
@@ -47,6 +46,8 @@ class JKeyboard : public QWidget
 public:
     JKeyboard(QScrollArea *panel, QWidget *parent = 0);
     void clearCompose();
+
+    static QTextCodec *codec;
 
 private:
     enum {
