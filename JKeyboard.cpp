@@ -312,7 +312,8 @@ void JKeyboard::predictWordClicked()
     QString s = button->text();
     s.remove(0, composeStr.length());
     if (s.length() && receiver) {
-        QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier, s);
+        QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier,
+                        JKeyboard::codec->toUnicode(s.toAscii()));
         QApplication::sendEvent(receiver, &event);
     }
 
