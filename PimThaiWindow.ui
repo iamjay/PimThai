@@ -13,6 +13,16 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton { border-radius: 4px; border: 1px solid grey; padding: 4px 8px 4px 8px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #F6F6F6, stop: 0.6 #E4E4E4, stop:1 #D3D7D8); }
+QPushButton:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #D3D7D8, stop: 0.6 #E4E4E4, stop:1 #F6F6F6); }
+QPushButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #559BBF, stop: 0.6 #3895D2, stop:1 #3381C3); }
+
+QToolButton { border-radius: 4px; border: 1px solid grey; padding: 4px 8px 4px 8px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #F6F6F6, stop: 0.6 #E4E4E4, stop:1 #D3D7D8); }
+QToolButton:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #D3D7D8, stop: 0.6 #E4E4E4, stop:1 #F6F6F6); }
+QToolButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #559BBF, stop: 0.6 #3895D2, stop:1 #3381C3); }
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -218,6 +228,9 @@
          <widget class="QPushButton" name="copyButton">
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">padding-left: 24px; padding-right: 24px;</string>
           </property>
           <property name="text">
            <string>Copy</string>
