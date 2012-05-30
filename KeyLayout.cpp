@@ -109,6 +109,7 @@ static KeyData *qwertyShiftedKeyData[] = { qwertyShifted1, qwertyShifted2,
                                             qwertyShifted3, qwertyShifted4 };
 
 static KeyData thai1[] = {
+    { 2, Qt::Key_Comma, 0, "ๆ", 0, 0, 0 },
     { 2, 0, 0, "ภ", "๑", 0, 0 },
     { 2, 0, 0, "ถ", "๒", 0, 0 },
     { 2, 0, 0, "ุ", "๓", 0, 0 },
@@ -123,16 +124,18 @@ static KeyData thai1[] = {
 };
 
 static KeyData thai2[] = {
+    { 1, -1, 0, 0, 0, 0, 0 },
     { 2, 0, 0, "ไ", 0, 0, 0 },
     { 2, 0, 0, "ำ", "ฎ", 0, 0 },
     { 2, 0, 0, "พ", "ฑ", 0, 0 },
     { 2, 0, 0, "ะ", "ธ", 0, 0 },
     { 2, 0, 0, "ั", "ู", 1, -1 },
-    { 2, 0, 0, "ี", "๊", 1, 1 },
+    { 2, 0, 0, "ี", "๊", 1, 2 },
     { 2, 0, 0, "ร", "ณ", 0, 0 },
     { 2, 0, 0, "น", "ฯ", 0, 0 },
     { 2, 0, 0, "ย", "ญ", 0, 0 },
     { 2, 0, 0, "บ", "ฐ", 0, 0 },
+    { 1, -1, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
 };
 
@@ -143,39 +146,40 @@ static KeyData thai3[] = {
     { 2, 0, 0, "ด", "โ", 0, 1 },
     { 2, 0, 0, "เ", "ฌ", 0, 0 },
     { 2, 0, 0, "้", "็", 1, 1},
-    { 2, 0, 0, "่", "๋", 1, 1},
+    { 2, 0, 0, "่", "๋", 1, 2},
     { 2, 0, 0, "า", "ษ", 0, 0 },
     { 2, 0, 0, "ส", "ศ", 0, 0 },
     { 2, 0, 0, "ว", "ซ", 0, 0 },
-    { 2, 0, 0, "ง", "'", 0, 0 },
+    { 2, 0, 0, "ง", "\"", 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
 };
 
 static KeyData thai4[] = {
-    { 2, Qt::Key_Shift, Qt::Key_Shift, "Shift", 0, 0, 0 },
+    { 3, Qt::Key_Shift, Qt::Key_Shift, "Shift", 0, 0, 0 },
     { 2, 0, 0, "ป", "ผ", 0, 0 },
     { 2, 0, 0, "แ", "ฉ", 0, 0 },
     { 2, 0, 0, "อ", "ฮ", 0, 0 },
     { 2, 0, 0, "ิ", "ฺ", 1, -1},
-    { 2, 0, 0, "ื", "์", 1, 1},
+    { 2, 0, 0, "ื", "์", 1, 2},
     { 2, 0, 0, "ท", "ๅ", 0, 0 },
     { 2, 0, 0, "ม", "ฒ", 0, 0 },
     { 2, 0, 0, "ใ", "ฬ", 0, 0 },
-    { 2, 0, 0, "ฝ", "ฦ", 0, 0 },
-    { 2, Qt::Key_Backspace, Qt::Key_Backspace, "<-", 0, 0, 0 },
+    { 3, Qt::Key_Backspace, Qt::Key_Backspace, "<-", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
 };
 
 static KeyData thai5[] = {
     { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
-    { 2, Qt::Key_Comma, 0, ",", "ๆ", 0, 0 },
-    { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
-    { 2, Qt::Key_Apostrophe, Qt::Key_Minus, ".", "-", 0, 0 },
+    { 2, Qt::Key_Comma, Qt::Key_Minus, ",", "-", 0, 0 },
+    { 10, Qt::Key_Space, 0, " ", 0, 0, 0 },
+    { 2, 0, 0, "ฝ", "ฦ", 0, 0 },
+    { 2, Qt::Key_Apostrophe, 0, ".", "'", 0, 0 },
     { 2, Qt::Key_Return, Qt::Key_Return, "Enter", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
 };
 
 static KeyData thaiShifted1[] = {
+    { 2, 0, 0, "ๆ", 0, 0, 0 },
     { 2, 0, Qt::Key_1, "๑", "1", 0, 0 },
     { 2, 0, Qt::Key_2, "๒", "2", 0, 0 },
     { 2, 0, Qt::Key_3, "๓", "3", 0, 0 },
@@ -190,6 +194,7 @@ static KeyData thaiShifted1[] = {
 };
 
 static KeyData thaiShifted2[] = {
+    { 1, -1, 0, 0, 0, 0, 0 },
     { 2, 0, 0, "ไ", 0, 0, 0 },
     { 2, 0, Qt::Key_At, "ฎ", "@", 0, 0 },
     { 2, 0, Qt::Key_NumberSign, "ฑ", "#", 0, 0 },
@@ -200,6 +205,7 @@ static KeyData thaiShifted2[] = {
     { 2, 0, 0, "ฯ", "™", 0, 0 },
     { 2, 0, Qt::Key_ParenLeft, "ญ", "(", 0, 0 },
     { 2, 0, Qt::Key_ParenRight, "ฐ", ")", 0, 0 },
+    { 1, -1, 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
 };
 
@@ -219,7 +225,7 @@ static KeyData thaiShifted3[] = {
 };
 
 static KeyData thaiShifted4[] = {
-    { 2, Qt::Key_Meta, Qt::Key_Meta, "Shift", 0, 0, 0 },
+    { 3, Qt::Key_Meta, Qt::Key_Meta, "Shift", 0, 0, 0 },
     { 2, 0, Qt::Key_Exclam, "ผ", "!", 0, 0 },
     { 2, 0, 0, "ฉ", 0, 0, 0 },
     { 2, 0, 0, "ฮ", 0, 0, 0 },
@@ -228,16 +234,16 @@ static KeyData thaiShifted4[] = {
     { 2, 0, Qt::Key_BraceLeft, "ๅ", "[", 0, 0 },
     { 2, 0, Qt::Key_BraceRight, "ฒ", "]", 0, 0 },
     { 2, 0, Qt::Key_QuoteLeft, "ฬ", "`", 0, 0 },
-    { 2, 0, Qt::Key_Question, "ฦ", "?", 0, 0 },
-    { 2, Qt::Key_Backspace, Qt::Key_Backspace, "<-", 0, 0, 0 },
+    { 3, Qt::Key_Backspace, Qt::Key_Backspace, "<-", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
 };
 
 static KeyData thaiShifted5[] = {
     { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
-    { 2, 0, 0, "ๆ", 0, 0, 0 },
-    { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0 },
+    { 10, Qt::Key_Space, 0, " ", 0, 0, 0 },
+    { 2, 0, 0, "ฦ", 0, 0, 0 },
+    { 2, 0, 0, "'", 0, 0, 0 },
     { 2, Qt::Key_Return, Qt::Key_Return, "Enter", 0, 0, 0 },
     { 0, 0, 0, 0, 0, 0, 0 },
 };

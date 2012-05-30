@@ -127,7 +127,7 @@ JKeyboard::JKeyboard(QWidget *parent)
 #endif
     dictDb.open();
 
-    setStyleSheet("QPushButton#key { font-size: 16pt; border-radius: 6px; color: white; background-color: black; }"
+    setStyleSheet("QPushButton#key { font-size: 19pt; border-radius: 6px; color: white; background-color: black; }"
                   "QPushButton#key:pressed { border-radius: 6px; background-color: #00D5FF; }");
 
     QHBoxLayout *hbox = new QHBoxLayout();
