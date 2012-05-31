@@ -45,7 +45,7 @@ static KeyData qwerty3[] = {
 };
 
 static KeyData qwerty4[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
+    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "TH", 0, 0, 0 },
     { 2, Qt::Key_Comma, Qt::Key_Minus, ",", "-", 0, 0 },
     { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
     { 2, Qt::Key_Period, Qt::Key_Apostrophe, ".", "'", 0, 0 },
@@ -96,7 +96,7 @@ static KeyData qwertyShifted3[] = {
 };
 
 static KeyData qwertyShifted4[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "EN", 0, 0, 0 },
+    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, "TH", 0, 0, 0 },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0 },
     { 12, Qt::Key_Space, 0, " ", 0, 0, 0 },
     { 2, Qt::Key_Apostrophe, 0, "'", 0, 0, 0 },
