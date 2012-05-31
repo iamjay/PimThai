@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <qnx>
     <id>com.kanokgems.PimThai</id>
-    <name>PimThai</name>
+    <name>Thai Input</name>
     <versionNumber>1.0.0</versionNumber>
-    <buildId>7</buildId>
-    <description>PimThai - A Thai Keyboard for BlackBerry Playbook</description>
+    <buildId>9</buildId>
+    <description>Thai Input for PlayBook</description>
     <copyright>Copyright 2012 Pathompong Puengrostham (pathompong@gmail.com)</copyright>
 
     <author>Pathompong Puengrostham</author>

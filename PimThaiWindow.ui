@@ -76,7 +76,7 @@ QToolButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0
          <enum>Qt::NoFocus</enum>
         </property>
         <property name="text">
-         <string>PimThai</string>
+         <string>About</string>
         </property>
        </widget>
       </item>

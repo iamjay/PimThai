@@ -38,7 +38,7 @@
           </font>
          </property>
          <property name="text">
-          <string>PimThai</string>
+          <string>Thai Input for PlayBook</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -48,7 +48,7 @@
        <item>
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>version 1.0.0.7</string>
+          <string>version 1.0.0.9</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -59,6 +59,16 @@
         <widget class="QLabel" name="label_3">
          <property name="text">
           <string>Copyright © 2012 Pathompong Puengrostham &lt;pathompong@gmail.com&gt;</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>This product is created by the adaptation of LEXiTRON developed by NECTEC (http://www.nectec.or.th/).</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
