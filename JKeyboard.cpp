@@ -103,9 +103,7 @@ PredictionContainer::PredictionContainer(QWidget *parent)
 
 QSize PredictionContainer::minimumSizeHint() const
 {
-    QSize s = QScrollArea::minimumSizeHint();
-    s.setHeight(52);
-    return s;
+    return QSize(0, 52);
 }
 
 JKeyboard::JKeyboard(QWidget *parent)
