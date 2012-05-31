@@ -15,14 +15,16 @@ SOURCES += \
     PimThaiWindow.cpp \
     JDummyInputContext.cpp \
     KeyLayout.cpp \
-    AboutDialog.cpp
+    AboutDialog.cpp \
+    Toaster.cpp
 
 HEADERS += \
     JKeyboard.h \
     PimThaiWindow.h \
     JDummyInputContext.h \
     KeyLayout.h \
-    AboutDialog.h
+    AboutDialog.h \
+    Toaster.h
 
 FORMS += \
     PimThaiWindow.ui \

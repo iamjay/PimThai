@@ -7,7 +7,6 @@
 #include "PimThaiWindow.h"
 
 #include "AboutDialog.h"
-#include "JKeyboard.h"
 
 const char *PimThaiWindow::activeBufferKey = "activeBuffer";
 const char *PimThaiWindow::buffer0Key = "buffer0";
@@ -20,6 +19,8 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupUi(this);
+
+    toaster = new Toaster(this);
 
     keyboard = new JKeyboard();
     QVBoxLayout *l = static_cast<QVBoxLayout *>(mainContainer->layout());
@@ -104,6 +105,13 @@ void PimThaiWindow::copyToClipboard()
 #if __QNX__
     set_clipboard_data("text/plain", s.size(), s.constData());
 #endif
+
+    QSize ts = textEdit->size();
+    QPoint p = textEdit->pos();
+    p.rx() += ts.width() / 2;
+    p.ry() += ts.height() / 2;
+    p = mapToGlobal(p);
+    toaster->showToast(p, "Text is copied");
 }
 
 void PimThaiWindow::updateBuffer(QToolButton *button)

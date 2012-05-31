@@ -6,6 +6,7 @@
 #include "ui_PimThaiWindow.h"
 
 #include "JKeyboard.h"
+#include "Toaster.h"
 
 class PimThaiWindow : public QMainWindow,
         private Ui::PimThaiWindow
@@ -31,6 +32,7 @@ protected:
         MAX_BUFFER = 4
     };
 
+    Toaster *toaster;
     QSettings settingsDb;
     JKeyboard *keyboard;
     int activeBuffer;
