@@ -40,6 +40,8 @@ protected:
     QToolButton *bufferButtons[MAX_BUFFER];
     bool predictionEnabled;
 
+    void changeEvent(QEvent *event);
+
     void updateBuffer(QToolButton *button);
 
 private slots:

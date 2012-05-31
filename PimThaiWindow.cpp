@@ -62,6 +62,19 @@ PimThaiWindow::~PimThaiWindow()
     saveSettings();
 }
 
+void PimThaiWindow::changeEvent(QEvent *event)
+{
+    if (event->type() == QEvent::ActivationChange) {
+        if (!isActiveWindow()) {
+            const QByteArray s = textEdit->toPlainText().toUtf8();
+
+#if __QNX__
+            set_clipboard_data("text/plain", s.size(), s.constData());
+#endif
+        }
+    }
+}
+
 void PimThaiWindow::saveSettings()
 {
     buffers[activeBuffer] = textEdit->toPlainText();
