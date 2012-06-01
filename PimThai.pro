@@ -16,7 +16,8 @@ SOURCES += \
     JDummyInputContext.cpp \
     KeyLayout.cpp \
     AboutDialog.cpp \
-    Toaster.cpp
+    Toaster.cpp \
+    MenuBar.cpp
 
 HEADERS += \
     JKeyboard.h \
@@ -24,11 +25,13 @@ HEADERS += \
     JDummyInputContext.h \
     KeyLayout.h \
     AboutDialog.h \
-    Toaster.h
+    Toaster.h \
+    MenuBar.h
 
 FORMS += \
     PimThaiWindow.ui \
-    About.ui
+    About.ui \
+    MenuBar.ui
 
 OTHER_FILES += \
     bar-descriptor.xml \
@@ -78,3 +81,6 @@ package-release.commands = blackberry-nativepackager \
 QMAKE_EXTRA_TARGETS += package package-release
 
 QMAKE_CLEAN += $${TARGET} $${TARGET}.bar
+
+RESOURCES += \
+    PimThai.qrc

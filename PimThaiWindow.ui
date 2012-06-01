@@ -63,6 +63,9 @@ QToolButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0
            <pointsize>18</pointsize>
           </font>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::StrongFocus</enum>
+         </property>
          <property name="undoRedoEnabled">
           <bool>false</bool>
          </property>
@@ -76,16 +79,6 @@ QToolButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QPushButton" name="aboutButton">
-        <property name="focusPolicy">
-         <enum>Qt::NoFocus</enum>
-        </property>
-        <property name="text">
-         <string>About</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <widget class="QToolButton" name="buf0Button">
         <property name="sizePolicy">

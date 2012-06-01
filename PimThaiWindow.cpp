@@ -7,6 +7,7 @@
 #include "PimThaiWindow.h"
 
 #include "AboutDialog.h"
+#include "MenuBar.h"
 
 const char *PimThaiWindow::activeBufferKey = "activeBuffer";
 const char *PimThaiWindow::buffer0Key = "buffer0";
@@ -14,12 +15,14 @@ const char *PimThaiWindow::buffer1Key = "buffer1";
 const char *PimThaiWindow::buffer2Key = "buffer2";
 const char *PimThaiWindow::buffer3Key = "buffer3";
 const char *PimThaiWindow::predictionEnabledKey = "predict";
+const char *PimThaiWindow::autoCopyEnabledKey = "autoCopy";
 
 PimThaiWindow::PimThaiWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setupUi(this);
 
+    menuBar = new MenuBar(this);
     toaster = new Toaster(this);
 
     keyboard = new JKeyboard(textEdit);
@@ -36,7 +39,8 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     bufferButtons[2] = buf2Button;
     bufferButtons[3] = buf3Button;
 
-    connect(aboutButton, SIGNAL(clicked()), this, SLOT(aboutClicked()));
+    connect(menuBar->aboutButton, SIGNAL(clicked()), this, SLOT(aboutClicked()));
+    connect(menuBar->autoCopyButton, SIGNAL(clicked()), this, SLOT(autoCopyClicked()));
     connect(copyButton, SIGNAL(clicked()), this, SLOT(copyToClipboard()));
     connect(clearButton, SIGNAL(clicked()), this, SLOT(clearBuffer()));
     connect(predictButton, SIGNAL(toggled(bool)), this, SLOT(predictToggleClicked(bool)));
@@ -51,6 +55,7 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     buffers[2] = settingsDb.value(buffer2Key, "").toString();
     buffers[3] = settingsDb.value(buffer3Key, "").toString();
     predictionEnabled = settingsDb.value(predictionEnabledKey, true).toBool();
+    autoCopyEnabled = settingsDb.value(autoCopyEnabledKey, true).toBool();
 
     predictButton->setChecked(predictionEnabled);
     updateBuffer(bufferButtons[activeBuffer]);
@@ -62,10 +67,21 @@ PimThaiWindow::~PimThaiWindow()
     saveSettings();
 }
 
+void PimThaiWindow::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Menu || event->key() == Qt::Key_Escape) {
+        menuBar->autoCopyButton->setChecked(autoCopyEnabled);
+
+        menuBar->move(mapToGlobal(QPoint(0, 0)));
+        menuBar->resize(width(), -1);
+        menuBar->show();
+    }
+}
+
 void PimThaiWindow::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::ActivationChange) {
-        if (!isActiveWindow()) {
+        if (autoCopyEnabled && !isActiveWindow()) {
             const QByteArray s = textEdit->toPlainText().toUtf8();
 
 #if __QNX__
@@ -85,6 +101,7 @@ void PimThaiWindow::saveSettings()
     settingsDb.setValue(buffer2Key, buffers[2]);
     settingsDb.setValue(buffer3Key, buffers[3]);
     settingsDb.setValue(predictionEnabledKey, predictionEnabled);
+    settingsDb.setValue(autoCopyEnabledKey, autoCopyEnabled);
 }
 
 void PimThaiWindow::resizeEvent(QResizeEvent *event)
@@ -97,12 +114,21 @@ void PimThaiWindow::resizeEvent(QResizeEvent *event)
 
 void PimThaiWindow::aboutClicked()
 {
+    menuBar->hide();
+
     AboutDialog d;
     d.setModal(true);
 #if __QNX__
     d.showMaximized();
 #endif
     d.exec();
+}
+
+void PimThaiWindow::autoCopyClicked()
+{
+    menuBar->hide();
+
+    autoCopyEnabled = !autoCopyEnabled;
 }
 
 void PimThaiWindow::clearBuffer()
