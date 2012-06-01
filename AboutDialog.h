@@ -14,9 +14,6 @@ class AboutDialog : public QDialog,
 
 public:
     AboutDialog(QWidget *parent = 0);
-
-private:
-    static const char *aboutText;
 };
 
 #endif

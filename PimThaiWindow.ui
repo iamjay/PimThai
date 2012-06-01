@@ -15,12 +15,12 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QPushButton { border-radius: 4px; border: 1px solid grey; padding: 6px 8px 6px 8px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #F6F6F6, stop: 0.6 #E4E4E4, stop:1 #D3D7D8); }
-QPushButton:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #D3D7D8, stop: 0.6 #E4E4E4, stop:1 #F6F6F6); }
-QPushButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #559BBF, stop: 0.6 #3895D2, stop:1 #3381C3); }
+QPushButton:pressed { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #559BBF, stop: 0.6 #3895D2, stop:1 #3381C3); }
+QPushButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #3381C3, stop: 0.6 #3895D2, stop:1 #559BBF); }
 
 QToolButton { border-radius: 4px; border: 1px solid grey; padding: 4px 4px 4px 4px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #F6F6F6, stop: 0.6 #E4E4E4, stop:1 #D3D7D8); }
-QToolButton:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #D3D7D8, stop: 0.6 #E4E4E4, stop:1 #F6F6F6); }
-QToolButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #559BBF, stop: 0.6 #3895D2, stop:1 #3381C3); }
+QToolButton:pressed { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #559BBF, stop: 0.6 #3895D2, stop:1 #3381C3); }
+QToolButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #3381C3, stop: 0.6 #3895D2, stop:1 #559BBF); }
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -197,22 +197,6 @@ QToolButton:checked { color: white; background: qlineargradient(x1:0, y1:0, x2:0
         <property name="spacing">
          <number>6</number>
         </property>
-        <item>
-         <widget class="QPushButton" name="predictButton">
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
-          <property name="text">
-           <string>Prediction</string>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item>
          <widget class="QPushButton" name="clearButton">
           <property name="focusPolicy">

@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/icons">
         <file>ic_menu_copy.png</file>
-        <file>ic_menu_help_holo_light.png</file>
+        <file>ic_menu_help.png</file>
+        <file>ic_menu_info_details.png</file>
+        <file>ic_menu_star.png</file>
     </qresource>
 </RCC>

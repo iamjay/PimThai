@@ -51,7 +51,7 @@ private:
 
 private slots:
     void aboutClicked();
-    void autoCopyClicked();
+    void autoCopyClicked(bool enabled);
     void clearBuffer();
     void copyToClipboard();
     void bufferButtonClicked();

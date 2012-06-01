@@ -40,10 +40,10 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     bufferButtons[3] = buf3Button;
 
     connect(menuBar->aboutButton, SIGNAL(clicked()), this, SLOT(aboutClicked()));
-    connect(menuBar->autoCopyButton, SIGNAL(clicked()), this, SLOT(autoCopyClicked()));
+    connect(menuBar->predictionButton, SIGNAL(clicked(bool)), this, SLOT(predictToggleClicked(bool)));
+    connect(menuBar->autoCopyButton, SIGNAL(clicked(bool)), this, SLOT(autoCopyClicked(bool)));
     connect(copyButton, SIGNAL(clicked()), this, SLOT(copyToClipboard()));
     connect(clearButton, SIGNAL(clicked()), this, SLOT(clearBuffer()));
-    connect(predictButton, SIGNAL(toggled(bool)), this, SLOT(predictToggleClicked(bool)));
     connect(buf0Button, SIGNAL(clicked()), this, SLOT(bufferButtonClicked()));
     connect(buf1Button, SIGNAL(clicked()), this, SLOT(bufferButtonClicked()));
     connect(buf2Button, SIGNAL(clicked()), this, SLOT(bufferButtonClicked()));
@@ -57,7 +57,6 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     predictionEnabled = settingsDb.value(predictionEnabledKey, true).toBool();
     autoCopyEnabled = settingsDb.value(autoCopyEnabledKey, true).toBool();
 
-    predictButton->setChecked(predictionEnabled);
     updateBuffer(bufferButtons[activeBuffer]);
     predictToggleClicked(predictionEnabled);
 }
@@ -70,6 +69,7 @@ PimThaiWindow::~PimThaiWindow()
 void PimThaiWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Menu || event->key() == Qt::Key_Escape) {
+        menuBar->predictionButton->setChecked(predictionEnabled);
         menuBar->autoCopyButton->setChecked(autoCopyEnabled);
 
         menuBar->move(mapToGlobal(QPoint(0, 0)));
@@ -106,6 +106,8 @@ void PimThaiWindow::saveSettings()
 
 void PimThaiWindow::resizeEvent(QResizeEvent *event)
 {
+    menuBar->hide();
+
     if (event->size().height() >= 1024)
         verticalLayout->setStretchFactor(keyboard, 2);
     else
@@ -122,13 +124,14 @@ void PimThaiWindow::aboutClicked()
     d.showMaximized();
 #endif
     d.exec();
+    activateWindow();
 }
 
-void PimThaiWindow::autoCopyClicked()
+void PimThaiWindow::autoCopyClicked(bool enabled)
 {
     menuBar->hide();
 
-    autoCopyEnabled = !autoCopyEnabled;
+    autoCopyEnabled = enabled;
 }
 
 void PimThaiWindow::clearBuffer()
@@ -175,6 +178,8 @@ void PimThaiWindow::bufferButtonClicked()
 
 void PimThaiWindow::predictToggleClicked(bool enabled)
 {
+    menuBar->hide();
+
     predictionEnabled = enabled;
     keyboard->predictToggleClicked(enabled);
 }
