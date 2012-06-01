@@ -22,7 +22,7 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
 
     toaster = new Toaster(this);
 
-    keyboard = new JKeyboard();
+    keyboard = new JKeyboard(textEdit);
     QVBoxLayout *l = static_cast<QVBoxLayout *>(mainContainer->layout());
     l->addWidget(keyboard->getPredictionWidget());
 
@@ -132,7 +132,7 @@ void PimThaiWindow::updateBuffer(QToolButton *button)
     for (int i = 0; i < MAX_BUFFER; ++i) {
         if (button == bufferButtons[i]) {
             activeBuffer = i;
-            textEdit->setText(buffers[i]);
+            textEdit->setPlainText(buffers[i]);
             bufferButtons[i]->setChecked(true);
         } else {
             bufferButtons[i]->setChecked(false);

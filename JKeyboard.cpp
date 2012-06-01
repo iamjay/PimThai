@@ -106,12 +106,14 @@ QSize PredictionContainer::minimumSizeHint() const
     return QSize(0, 52);
 }
 
-JKeyboard::JKeyboard(QWidget *parent)
+JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
     : QWidget(parent)
 {
     if (codec == 0)
         codec = QTextCodec::codecForName("TIS-620");
 
+    this->receiver = receiver;
+    holdTimer.setSingleShot(true);
     currentLang = THAI;
     shifted = false;
     shiftLocked = false;
@@ -232,49 +234,44 @@ void JKeyboard::updatePrediction()
 
 void JKeyboard::processKeyInput(JKey *key, bool held)
 {
-    QObject *receiver = QApplication::focusWidget();
     int keyCode = key->getKeyCode(held);
-    QString keyText = key->getText(held);
 
-    switch (keyCode) {
-    case Qt::Key_Mode_switch:
+    if (keyCode == Qt::Key_Mode_switch) {
         shiftLocked = false;
         if (currentLang == ENGLISH)
             currentLang = THAI;
         else
             currentLang = ENGLISH;
         setShift(false);
-        break;
+    } else if (keyCode == Qt::Key_Meta || keyCode == Qt::Key_Shift) {
+        if (keyCode == Qt::Key_Meta)
+            key->setDown(true);
 
-    case Qt::Key_Meta:
-        key->setDown(true);
-    case Qt::Key_Shift:
         if (!shifted && held)
             shiftLocked = true;
         else
             shiftLocked = false;
         setShift(!shifted);
-        break;
-
-    case Qt::Key_Return:
-        if (receiver) {
-            QKeyEvent event(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier, "\n");
-            QApplication::sendEvent(receiver, &event);
-        }
-
+    } else if (keyCode == Qt::Key_Return) {
+        QKeyEvent event(QEvent::KeyPress, Qt::Key_Return, Qt::NoModifier, "\n");
+        QApplication::sendEvent(receiver, &event);
         composeStr.clear();
         updatePrediction();
-        break;
+    } else {
+        QString keyText = key->getText(held);
 
-    default:
         if (held && keyText.isEmpty()) {
             held = false;
             keyText = key->getText(held);
         }
 
-        if ((keyCode != 0 || !keyText.isEmpty()) && receiver) {
-            QKeyEvent event(QEvent::KeyPress, keyCode, Qt::NoModifier, keyText);
-            QApplication::sendEvent(receiver, &event);
+        if (keyCode != 0 || !keyText.isEmpty()) {
+            if (keyCode == 0) {
+                receiver->insertPlainText(keyText);
+            } else {
+                QKeyEvent event(QEvent::KeyPress, keyCode, Qt::NoModifier, keyText);
+                QApplication::sendEvent(receiver, &event);
+            }
 
             if (predictionEnabled) {
                 if (keyCode == Qt::Key_Backspace)
@@ -289,7 +286,6 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
 
         if (!shiftLocked)
             setShift(false);
-        break;
     }
 }
 

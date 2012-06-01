@@ -53,7 +53,7 @@ class JKeyboard : public QWidget
     Q_OBJECT
 
 public:
-    JKeyboard(QWidget *parent = 0);
+    JKeyboard(QPlainTextEdit *receiver, QWidget *parent = 0);
     void clearCompose();
     QWidget *getPredictionWidget() { return predictionWidget; }
 
@@ -69,6 +69,7 @@ private:
         THAI
     } currentLang;
 
+    QPlainTextEdit *receiver;
     bool shifted;
     bool shiftLocked;
     bool held;
