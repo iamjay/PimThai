@@ -142,9 +142,9 @@ void PimThaiWindow::clearBuffer()
 
 void PimThaiWindow::copyToClipboard()
 {
+#if __QNX__
     const QByteArray s = textEdit->toPlainText().toUtf8();
 
-#if __QNX__
     set_clipboard_data("text/plain", s.size(), s.constData());
 #endif
 
