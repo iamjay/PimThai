@@ -143,6 +143,7 @@ JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
     for (int i = 0; i < MAX_PREDICTION; ++i) {
         QPushButton *button = new QPushButton();
 
+        button->hide();
         button->setFocusPolicy(Qt::NoFocus);
         button->setStyleSheet("font-family: Garudax; font-size: 13pt; border-radius: 4px; border: 1px solid orange; color: darkorange; padding: 3px 6px 0px 6px; margin: 0px 4px 0px 4px;");
         button->setContentsMargins(0, 8, 0, 8);
