@@ -31,4 +31,5 @@ void Toaster::showToast(QPoint &p, const QString &text)
 void Toaster::toastTimeout()
 {
     hide();
+    static_cast<QWidget *>(parent())->activateWindow();
 }
