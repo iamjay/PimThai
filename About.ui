@@ -76,6 +76,9 @@ QPlainTextEdit { border: none; }</string>
            <pointsize>20</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string>Thai Input for PlayBook</string>
          </property>
@@ -88,8 +91,11 @@ QPlainTextEdit { border: none; }</string>
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>
-           <pointsize>14</pointsize>
+           <pointsize>11</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">padding-bottom: 20px;</string>
          </property>
          <property name="text">
           <string>version 1.0.0.11</string>
@@ -108,21 +114,6 @@ QPlainTextEdit { border: none; }</string>
          </property>
          <property name="text">
           <string>Copyright © 2012 Pathompong Puengrostham &lt;pathompong@gmail.com&gt;</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="label_4">
-         <property name="font">
-          <font>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>This product is created by the adaptation of LEXiTRON developed by NECTEC (http://www.nectec.or.th/).</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -149,6 +140,16 @@ QPlainTextEdit { border: none; }</string>
        <string>Data</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>This product is created by the adaptation of LEXiTRON developed by NECTEC (http://www.nectec.or.th/).</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QPlainTextEdit" name="plainTextEdit">
          <property name="font">
