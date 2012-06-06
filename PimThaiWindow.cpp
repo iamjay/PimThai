@@ -82,10 +82,12 @@ void PimThaiWindow::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::ActivationChange) {
         if (autoCopyEnabled && !isActiveWindow()) {
-            const QByteArray s = textEdit->toPlainText().toUtf8();
-
 #if __QNX__
+            const QByteArray s = JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()).toUtf8();
             set_clipboard_data("text/plain", s.size(), s.constData());
+#else
+            QClipboard *clipboard = QApplication::clipboard();
+            clipboard->setText(JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()));
 #endif
         }
     }
@@ -143,9 +145,11 @@ void PimThaiWindow::clearBuffer()
 void PimThaiWindow::copyToClipboard()
 {
 #if __QNX__
-    const QByteArray s = textEdit->toPlainText().toUtf8();
-
+    const QByteArray s = JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()).toUtf8();
     set_clipboard_data("text/plain", s.size(), s.constData());
+#else
+    QClipboard *clipboard = QApplication::clipboard();
+    clipboard->setText(JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()));
 #endif
 
     QSize ts = textEdit->size();

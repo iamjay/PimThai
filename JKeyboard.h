@@ -23,9 +23,8 @@ protected:
 
     const KeyData *keyData;
     QString text;
-    QString unicodeText;
     QString altText;
-    QString unicodeAltText;
+    QString altPaintText;
 
     void paintEvent(QPaintEvent *);
 };

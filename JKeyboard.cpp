@@ -12,18 +12,17 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     QFontDatabase fdb;
     setFont(fdb.font("Garudax", "normal", 14));
 
-    text = QString::fromAscii(JKeyboard::codec->fromUnicode(QString::fromUtf8(keyData->text)));
+    text = QString::fromLatin1(JKeyboard::codec->fromUnicode(QString::fromUtf8(keyData->text)));
+    altText = QString::fromLatin1(JKeyboard::codec->fromUnicode(QString::fromUtf8(keyData->altText)));
     if (keyData->altOffset)
-        altText = " ";
-    altText += QString::fromAscii(JKeyboard::codec->fromUnicode(QString::fromUtf8(keyData->altText)));
+        altPaintText = " ";
+    altPaintText += altText;
 #else
     text = QString::fromUtf8(keyData->text);
     if (keyData->altOffset)
         altText = " ";
     altText += QString::fromUtf8(keyData->altText);
 #endif
-    unicodeText = QString::fromUtf8(keyData->text);
-    unicodeAltText = QString::fromUtf8(keyData->altText);
 
     setObjectName("key");
     setText(text);
@@ -41,7 +40,7 @@ int JKey::getKeyCode(bool alt) const
 
 const QString &JKey::getText(bool alt) const
 {
-    return alt ? unicodeAltText : unicodeText;
+    return alt ? altText : text;
 }
 
 void JKey::paintEvent(QPaintEvent *pe)
@@ -53,7 +52,7 @@ void JKey::paintEvent(QPaintEvent *pe)
     pen.setColor(QColor::fromRgb(160, 160, 160));
     p.setPen(pen);
 
-    p.drawStaticText(10, keyData->altOffset * 10 - 10, altText);
+    p.drawStaticText(10, keyData->altOffset * 10 - 10, altPaintText);
 }
 
 JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
@@ -210,19 +209,20 @@ void JKeyboard::updatePrediction()
     }
 
     QPushButton *button = predictButton.at(0);
-    button->setText(QString::fromAscii(JKeyboard::codec->fromUnicode(composeStr)));
+    button->setText(composeStr);
     button->show();
 
+    QString composeStrUnicode = codec->toUnicode(composeStr.toLatin1());
     QSqlQuery q(QString("select word, freq from words where word like '%1%%' order by freq desc limit %2")
-                .arg(composeStr).arg(MAX_PREDICTION), dictDb);
+                .arg(composeStrUnicode).arg(MAX_PREDICTION), dictDb);
 
     int i = 1;
     while (q.next() && i < MAX_PREDICTION) {
         QString s = q.value(0).toString();
 
-        if (s != composeStr) {
+        if (s != composeStrUnicode) {
             button = predictButton.at(i);
-            button->setText(QString::fromAscii(JKeyboard::codec->fromUnicode(s)));
+            button->setText(QString::fromLatin1(codec->fromUnicode(s)));
             button->show();
             ++i;
         }
@@ -325,8 +325,7 @@ void JKeyboard::predictWordClicked()
     QString s = button->text();
     s.remove(0, composeStr.length());
     if (s.length() && receiver) {
-        QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier,
-                        JKeyboard::codec->toUnicode(s.toAscii()));
+        QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier, s);
         QApplication::sendEvent(receiver, &event);
     }
 

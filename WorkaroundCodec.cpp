@@ -1,7 +1,5 @@
 #include "WorkaroundCodec.h"
 
-#include <qdebug.h>
-
 static WorkaroundCodec myCodec;
 
 static const struct {
@@ -83,7 +81,6 @@ int WorkaroundCodec::mibEnum() const
 
 QString WorkaroundCodec::convertToUnicode(const char *chars, int len, ConverterState *) const
 {
-    qDebug() << "here1";
     if (len <= 0 || chars == 0)
         return QString();
 
@@ -103,7 +100,6 @@ QString WorkaroundCodec::convertToUnicode(const char *chars, int len, ConverterS
 
 QByteArray WorkaroundCodec::convertFromUnicode(const QChar *in, int length, ConverterState *state) const
 {
-    qDebug() << "here2";
     const char replacement = (state && state->flags & ConvertInvalidToNull) ? 0 : '?';
     int invalid = 0;
 
