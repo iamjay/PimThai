@@ -98,7 +98,7 @@ QPlainTextEdit { border: none; }</string>
           <string notr="true">padding-bottom: 20px;</string>
          </property>
          <property name="text">
-          <string>version 1.0.0.11</string>
+          <string>version 1.0.0.12</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
