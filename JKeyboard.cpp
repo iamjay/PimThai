@@ -48,12 +48,12 @@ void JKey::paintEvent(QPaintEvent *pe)
 {
     QPushButton::paintEvent(pe);
 
-    QStylePainter p(this);
+    QPainter p(this);
     QPen pen = p.pen();
     pen.setColor(QColor::fromRgb(160, 160, 160));
     p.setPen(pen);
 
-    p.drawText(10, keyData->altOffset * 10 + 20, altText);
+    p.drawStaticText(10, keyData->altOffset * 10 - 10, altText);
 }
 
 JKeyboardLayout::JKeyboardLayout(JKeyboard *receiver, const KeyLayout *layout,
@@ -110,7 +110,7 @@ JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
     : QWidget(parent)
 {
     if (codec == 0)
-        codec = QTextCodec::codecForName("TIS-620");
+        codec = QTextCodec::codecForName("TIS-620A");
 
     this->receiver = receiver;
     holdTimer.setSingleShot(true);

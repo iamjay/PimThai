@@ -17,7 +17,8 @@ SOURCES += \
     KeyLayout.cpp \
     AboutDialog.cpp \
     Toaster.cpp \
-    MenuBar.cpp
+    MenuBar.cpp \
+    WorkaroundCodec.cpp
 
 HEADERS += \
     JKeyboard.h \
@@ -26,7 +27,8 @@ HEADERS += \
     KeyLayout.h \
     AboutDialog.h \
     Toaster.h \
-    MenuBar.h
+    MenuBar.h \
+    WorkaroundCodec.h
 
 FORMS += \
     PimThaiWindow.ui \
