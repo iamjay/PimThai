@@ -38,7 +38,7 @@ FORMS += \
 OTHER_FILES += \
     bar-descriptor.xml \
     icon.png \
-    dict.png \
+    dict.db \
     Garuda.ttf \
     splash.png
 
