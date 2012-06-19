@@ -71,7 +71,8 @@ PACKAGE_OPT = \
     -e ${QTDIR}/lib/libQtOpenGL.so.4 lib/libQtOpenGL.so.4 \
     -e ${QTDIR}/lib/libQtNetwork.so.4 lib/libQtNetwork.so.4 \
     -e ${QTDIR}/lib/libQtSql.so.4 lib/libQtSql.so.4 \
-    -e ${QTDIR}/plugins/platforms/libblackberry.so lib/platforms/libblackberry.so
+    -e ${QTDIR}/plugins/platforms/libblackberry.so plugins/platforms/libblackberry.so \
+    -e ${QTDIR}/plugins/sqldrivers/libqsqlite.so plugins/sqldrivers/libqsqlite.so
 
 PACKAGE_DEPEND = \
     $${TARGET} $${PWD}/bar-descriptor.xml \

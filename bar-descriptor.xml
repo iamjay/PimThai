@@ -3,7 +3,7 @@
     <id>com.kanokgems.PimThai</id>
     <name>Thai Input</name>
     <versionNumber>1.0.0</versionNumber>
-    <buildId>12</buildId>
+    <buildId>14</buildId>
     <description>Thai Input for PlayBook</description>
     <copyright>Copyright 2012 Pathompong Puengrostham (pathompong@gmail.com)</copyright>
 
@@ -17,7 +17,7 @@
     </initialWindow>
 
     <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
-    <env var="QT_QPA_PLATFORM_PLUGIN_PATH" value="app/native/lib/platforms" />
+    <env var="QT_PLUGIN_PATH" value="app/native/plugins" />
 
     <configuration name="Default">
        <platformArchitecture>armle-v7</platformArchitecture>
