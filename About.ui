@@ -25,7 +25,10 @@ QTabBar::tab:selected { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop
 
 QPushButton { border-radius: 4px; border: 1px solid grey; padding: 6px 8px 6px 8px; background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #559BBF, stop: 0.6 #3895D2, stop:1 #3381C3); }
 
-QPlainTextEdit { border: none; }</string>
+QPlainTextEdit { border: none; }
+
+QScrollBar:vertical { background-color: #559BBF; min-width: 16px; margin-right: 16px; }
+</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -98,7 +101,7 @@ QPlainTextEdit { border: none; }</string>
           <string notr="true">padding-bottom: 20px;</string>
          </property>
          <property name="text">
-          <string>version 1.0.0.12</string>
+          <string>version 1.0.0.14</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -157,11 +160,20 @@ QPlainTextEdit { border: none; }</string>
            <family>Courier New</family>
           </font>
          </property>
+         <property name="focusPolicy">
+          <enum>Qt::NoFocus</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
          <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
+          <enum>Qt::ScrollBarAsNeeded</enum>
          </property>
          <property name="horizontalScrollBarPolicy">
           <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
          </property>
          <property name="plainText">
           <string>Copyright (c)  2003 National Electronics and Computer Technology Center (NECTEC).
