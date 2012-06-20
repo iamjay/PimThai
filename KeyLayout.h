@@ -28,6 +28,7 @@ struct KeyData
     const char *altText;
     int offset;
     int altOffset;
+    const char *icon;
 };
 
 struct KeyLayout

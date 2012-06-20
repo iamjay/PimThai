@@ -4,5 +4,10 @@
         <file>ic_menu_help.png</file>
         <file>ic_menu_info_details.png</file>
         <file>ic_menu_star.png</file>
+        <file>backspace.png</file>
+        <file>english.png</file>
+        <file>enter.png</file>
+        <file>shift.png</file>
+        <file>thai.png</file>
     </qresource>
 </RCC>

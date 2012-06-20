@@ -44,6 +44,10 @@ JKey::JKey(const KeyData *key, QWidget *parent)
 
     setObjectName("key");
     setText(text);
+    if (keyData->icon) {
+        setIcon(QIcon(keyData->icon));
+        setIconSize(QSize(36, 36));
+    }
     setFocusPolicy(Qt::NoFocus);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
