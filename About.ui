@@ -101,7 +101,7 @@ QScrollBar:vertical { background-color: #559BBF; min-width: 16px; margin-right: 
           <string notr="true">padding-bottom: 20px;</string>
          </property>
          <property name="text">
-          <string>version 1.0.0.14</string>
+          <string>version 1.0.0.15</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
@@ -143,7 +143,7 @@ QScrollBar:vertical { background-color: #559BBF; min-width: 16px; margin-right: 
           </font>
          </property>
          <property name="mouseTracking">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; Special thanks to: BlackBerryClubThailand &lt;a href=&quot;http://www.blackberryclubthailand.com&quot;&gt;&lt;span style=&quot; text-decoration: none; color:#3381C3;&quot;&gt;http://www.blackberryclubthailand.com&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
