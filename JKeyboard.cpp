@@ -141,12 +141,16 @@ JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
     predictionEnabled = false;
 
     dictDb = QSqlDatabase::addDatabase("QSQLITE", "dict");
+    engDictDb = QSqlDatabase::addDatabase("QSQLITE", "eng_dict");
 #if __QNX__
     dictDb.setDatabaseName("app/native/dict.db");
+    engDictDb.setDatabaseName("app/native/eng_dict.db");
 #else
     dictDb.setDatabaseName("dict.db");
+    engDictDb.setDatabaseName("eng_dict.db");
 #endif
     dictDb.open();
+    engDictDb.open();
 
     setStyleSheet("QPushButton#key { font-size: 19pt; border-radius: 6px; color: white; background-color: black; }"
                   "QPushButton#key:pressed { border-radius: 6px; background-color: #00D5FF; }");
@@ -236,7 +240,8 @@ void JKeyboard::updatePrediction()
 
     QString composeStrUnicode = codec->toUnicode(composeStr.toLatin1());
     QSqlQuery q(QString("select word, freq from words where word like '%1%%' order by freq desc limit %2")
-                .arg(composeStrUnicode).arg(MAX_PREDICTION), dictDb);
+                .arg(composeStrUnicode).arg(MAX_PREDICTION),
+                currentLang == THAI ? dictDb : engDictDb);
 
     int i = 1;
     while (q.next() && i < MAX_PREDICTION) {
@@ -348,6 +353,10 @@ void JKeyboard::predictWordClicked()
     s.remove(0, composeStr.length());
     if (s.length() && receiver) {
         QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier, s);
+        QApplication::sendEvent(receiver, &event);
+    }
+    if (currentLang == ENGLISH) {
+        QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier, " ");
         QApplication::sendEvent(receiver, &event);
     }
 

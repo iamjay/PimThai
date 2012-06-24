@@ -91,6 +91,7 @@ private:
     bool shiftLocked;
     bool held;
     QSqlDatabase dictDb;
+    QSqlDatabase engDictDb;
 
     PredictionContainer *predictionWidget;
     QList<QPushButton *> predictButton;

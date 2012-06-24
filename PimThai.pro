@@ -52,6 +52,7 @@ OTHER_FILES += \
     bar-descriptor.xml \
     icon.png \
     dict.db \
+    eng_dict.db \
     Garuda.ttf \
     splash.png
 
@@ -65,6 +66,7 @@ PACKAGE_OPT = \
     -e $${PWD}/icon.png icon.png \
     -e $${PWD}/splash.png splash.png \
     -e $${PWD}/dict.db dict.db \
+    -e $${PWD}/eng_dict.db eng_dict.db \
     -e $${PWD}/Garuda.ttf fonts/Garuda.ttf \
     -e ${QTDIR}/lib/libQtCore.so.4 lib/libQtCore.so.4 \
     -e ${QTDIR}/lib/libQtGui.so.4 lib/libQtGui.so.4 \
@@ -78,6 +80,7 @@ PACKAGE_DEPEND = \
     $${TARGET} $${PWD}/bar-descriptor.xml \
     $${TARGET} $${PWD}/icon.png \
     $${TARGET} $${PWD}/dict.db \
+    $${TARGET} $${PWD}/eng_dict.db \
     $${TARGET} $${PWD}/Garuda.ttf \
     $${TARGET} $${PWD}/splash.png
 
