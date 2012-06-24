@@ -229,25 +229,28 @@ void JKeyboard::updatePrediction()
         return;
 
     if (composeStr.length() == 0) {
+        predictWord.clear();
         for (int i = 0; i < MAX_PREDICTION; ++i)
             predictButton.at(i)->hide();
         return;
     }
-
-    QPushButton *button = predictButton.at(0);
-    button->setText(composeStr);
-    button->show();
 
     QString composeStrUnicode = codec->toUnicode(composeStr.toLatin1());
     QSqlQuery q(QString("select word, freq from words where word like '%1%%' order by freq desc limit %2")
                 .arg(composeStrUnicode).arg(MAX_PREDICTION),
                 currentLang == THAI ? dictDb : engDictDb);
 
+    QPushButton *button = predictButton.at(0);
+    button->setText(composeStr);
+    button->show();
+
     int i = 1;
     while (q.next() && i < MAX_PREDICTION) {
         QString s = q.value(0).toString();
 
-        if (s != composeStrUnicode) {
+        if (s == composeStrUnicode) {
+            predictWord = composeStr;
+        } else {
             button = predictButton.at(i);
             button->setText(QString::fromLatin1(codec->fromUnicode(s)));
             button->show();
@@ -256,8 +259,22 @@ void JKeyboard::updatePrediction()
     }
     q.clear();
 
-    for ( ; i < MAX_PREDICTION; ++i)
-        predictButton.at(i)->hide();
+    if (i == 1 && predictWord.length() > 0) {
+        composeStr.remove(0, predictWord.length());
+        predictWord.clear();
+        if (composeStr.length() > 0) {
+            updatePrediction();
+        } else {
+            for ( ; i < MAX_PREDICTION; ++i)
+                predictButton.at(i)->hide();
+        }
+    } else {
+        if (i == 0)
+            composeStr.clear();
+
+        for ( ; i < MAX_PREDICTION; ++i)
+            predictButton.at(i)->hide();
+    }
 }
 
 void JKeyboard::processKeyInput(JKey *key, bool held)
@@ -271,6 +288,8 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
         else
             currentLang = ENGLISH;
         setShift(false);
+        composeStr.clear();
+        updatePrediction();
     } else if (keyCode == Qt::Key_Meta || keyCode == Qt::Key_Shift) {
         if (keyCode == Qt::Key_Meta)
             key->setDown(true);
@@ -302,13 +321,16 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
             }
 
             if (predictionEnabled) {
-                if (keyCode == Qt::Key_Backspace)
+                if (keyCode == Qt::Key_Backspace) {
                     composeStr.remove(composeStr.length() - 1, 1);
-                else if (keyCode == Qt::Key_Space)
+                    updatePrediction();
+                } else if (keyCode == Qt::Key_Space || keyCode == Qt::Key_Period) {
                     composeStr.clear();
-                else
+                    updatePrediction();
+                } else {
                     composeStr.append(keyText);
-                updatePrediction();
+                    updatePrediction();
+                }
             }
         }
 

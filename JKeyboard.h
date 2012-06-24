@@ -106,6 +106,7 @@ private:
 
     bool predictionEnabled;
     QString composeStr;
+    QString predictWord;
 
     void setShift(bool b);
     void processKeyInput(JKey *key, bool held);
