@@ -233,6 +233,8 @@ void JKeyboard::updatePrediction()
         for (int i = 0; i < MAX_PREDICTION; ++i)
             predictButton.at(i)->hide();
         return;
+    } else if (composeStr.length() < predictWord.length()) {
+        predictWord.clear();
     }
 
     QString composeStrUnicode = codec->toUnicode(composeStr.toLatin1());
@@ -249,7 +251,8 @@ void JKeyboard::updatePrediction()
         QString s = q.value(0).toString();
 
         if (s == composeStrUnicode) {
-            predictWord = composeStr;
+            if (currentLang == THAI)
+                predictWord = composeStr;
         } else {
             button = predictButton.at(i);
             button->setText(QString::fromLatin1(codec->fromUnicode(s)));
@@ -259,22 +262,23 @@ void JKeyboard::updatePrediction()
     }
     q.clear();
 
-    if (i == 1 && predictWord.length() > 0) {
-        composeStr.remove(0, predictWord.length());
-        predictWord.clear();
-        if (composeStr.length() > 0) {
-            updatePrediction();
-        } else {
-            for ( ; i < MAX_PREDICTION; ++i)
-                predictButton.at(i)->hide();
-        }
-    } else {
-        if (i == 0)
+    if (i == 1) {
+        if (currentLang == THAI && predictWord.length() > 0) {
+            composeStr.remove(0, predictWord.length());
+            predictWord.clear();
+            if (composeStr.length() > 0) {
+                updatePrediction();
+                return;
+            }
+            i = 0;
+        } else if (composeStr.length() == 1) {
             composeStr.clear();
-
-        for ( ; i < MAX_PREDICTION; ++i)
-            predictButton.at(i)->hide();
+            i = 0;
+        }
     }
+
+    for ( ; i < MAX_PREDICTION; ++i)
+        predictButton.at(i)->hide();
 }
 
 void JKeyboard::processKeyInput(JKey *key, bool held)
@@ -322,7 +326,8 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
 
             if (predictionEnabled) {
                 if (keyCode == Qt::Key_Backspace) {
-                    composeStr.remove(composeStr.length() - 1, 1);
+                    if (composeStr.length() > 0)
+                        composeStr.remove(composeStr.length() - 1, 1);
                     updatePrediction();
                 } else if (keyCode == Qt::Key_Space || keyCode == Qt::Key_Period) {
                     composeStr.clear();
