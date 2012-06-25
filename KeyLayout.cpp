@@ -63,7 +63,7 @@ static KeyData qwerty3[] = {
 };
 
 static KeyData qwerty4[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/english.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "#..", 0, 0, ":/icons/english.png" },
     { 2, Qt::Key_Comma, Qt::Key_Minus, ",", "-", 0, 0, 0 },
     { 8, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, Qt::Key_Period, Qt::Key_Apostrophe, ".", "'", 0, 0, 0 },
@@ -115,7 +115,7 @@ static KeyData qwertyShifted3[] = {
 };
 
 static KeyData qwertyShifted4[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/english.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "#..", 0, 0, ":/icons/english.png" },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0, 0 },
     { 8, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, Qt::Key_Apostrophe, 0, "'", 0, 0, 0, 0 },
@@ -189,7 +189,7 @@ static KeyData thai4[] = {
 };
 
 static KeyData thai5[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/thai.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "#..", 0, 0, ":/icons/thai.png" },
     { 2, Qt::Key_Comma, Qt::Key_Minus, ",", "-", 0, 0, 0 },
     { 6, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, 0, 0, "ฝ", "ฦ", 0, 0, 0 },
@@ -260,7 +260,7 @@ static KeyData thaiShifted4[] = {
 };
 
 static KeyData thaiShifted5[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/thai.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "#..", 0, 0, ":/icons/thai.png" },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0, 0 },
     { 6, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, 0, 0, "ฦ", 0, 0, 0, 0 },
@@ -309,7 +309,7 @@ static KeyData symbol3[] = {
     { 2, 0, 0, "8", 0, 0, 0, 0 },
     { 2, 0, 0, "9", 0, 0, 0, 0 },
     { 2, 0, 0, "$", 0, 0, 0, 0 },
-    { 2, 0, 0, "?", "€", 0, 0, 0 },
+    { 2, 0, 0, "?", 0, 0, 0, 0 },
     { 2, 0, 0, "!", "฿", 0, 0, 0 },
     { 2, 0, 0, "=", 0, 0, 0, 0 },
     { 2, 0, 0, ",", 0, 0, 0, 0 },
@@ -362,7 +362,7 @@ static KeyData symbolShifted3[] = {
     { 2, 0, 0, "8", 0, 0, 0, 0 },
     { 2, 0, 0, "9", 0, 0, 0, 0 },
     { 2, 0, 0, "$", 0, 0, 0, 0 },
-    { 2, 0, 0, "€", 0, 0, 0, 0 },
+    { 2, 0, 0, "?", 0, 0, 0, 0 },
     { 2, 0, 0, "฿", 0, 0, 0, 0 },
     { 2, 0, 0, "=", 0, 0, 0, 0 },
     { 2, 0, 0, ",", 0, 0, 0, 0 },
