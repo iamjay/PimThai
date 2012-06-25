@@ -9,5 +9,6 @@
         <file>enter.png</file>
         <file>shift.png</file>
         <file>thai.png</file>
+        <file>ic_menu_revert.png</file>
     </qresource>
 </RCC>

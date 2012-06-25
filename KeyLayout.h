@@ -47,5 +47,7 @@ extern KeyLayout qwertyKeys;
 extern KeyLayout qwertyShiftedKeys;
 extern KeyLayout thaiKeys;
 extern KeyLayout thaiShiftedKeys;
+extern KeyLayout symbolKeys;
+extern KeyLayout symbolShiftedKeys;
 
 #endif

@@ -44,9 +44,15 @@ JKey::JKey(const KeyData *key, QWidget *parent)
 
     setObjectName("key");
     setText(text);
+
+    if (text == "&&")
+        text = "&";
+
     if (keyData->icon) {
         setIcon(QIcon(keyData->icon));
         setIconSize(QSize(36, 36));
+        setStyleSheet("* { background-color: #404040; }"
+                      "*:pressed { background-color: #00D5FF; }");
     }
     setFocusPolicy(Qt::NoFocus);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
@@ -138,6 +144,7 @@ JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
     currentLang = THAI;
     shifted = false;
     shiftLocked = false;
+    symbolActive = false;
     predictionEnabled = false;
 
     dictDb = QSqlDatabase::addDatabase("QSQLITE", "dict");
@@ -188,11 +195,15 @@ JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
     thaiShifted = new JKeyboardLayout(this, &thaiShiftedKeys);
     qwerty = new JKeyboardLayout(this, &qwertyKeys);
     qwertyShifted = new JKeyboardLayout(this, &qwertyShiftedKeys);
+    symbol = new JKeyboardLayout(this, &symbolKeys);
+    symbolShifted = new JKeyboardLayout(this, &symbolShiftedKeys);
 
     stacked->addWidget(thai);
     stacked->addWidget(thaiShifted);
     stacked->addWidget(qwerty);
     stacked->addWidget(qwertyShifted);
+    stacked->addWidget(symbol);
+    stacked->addWidget(symbolShifted);
 
     connect(&holdTimer, SIGNAL(timeout()), this, SLOT(holdTimeout()));
 
@@ -211,12 +222,16 @@ void JKeyboard::setShift(bool b)
 {
     shifted = b;
     if (shifted) {
-        if (currentLang == ENGLISH)
+        if (symbolActive)
+            stacked->setCurrentWidget(symbolShifted);
+        else if (currentLang == ENGLISH)
             stacked->setCurrentWidget(qwertyShifted);
         else
             stacked->setCurrentWidget(thaiShifted);
     } else {
-        if (currentLang == ENGLISH)
+        if (symbolActive)
+            stacked->setCurrentWidget(symbol);
+        else if (currentLang == ENGLISH)
             stacked->setCurrentWidget(qwerty);
         else
             stacked->setCurrentWidget(thai);
@@ -291,6 +306,12 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
             currentLang = THAI;
         else
             currentLang = ENGLISH;
+        setShift(false);
+        composeStr.clear();
+        updatePrediction();
+    } else if (keyCode == Qt::Key_AltGr) {
+        shiftLocked = false;
+        symbolActive = !symbolActive;
         setShift(false);
         composeStr.clear();
         updatePrediction();

@@ -89,6 +89,7 @@ private:
     QPlainTextEdit *receiver;
     bool shifted;
     bool shiftLocked;
+    bool symbolActive;
     bool held;
     QSqlDatabase dictDb;
     QSqlDatabase engDictDb;
@@ -100,6 +101,8 @@ private:
     JKeyboardLayout *qwertyShifted;
     JKeyboardLayout *thai;
     JKeyboardLayout *thaiShifted;
+    JKeyboardLayout *symbol;
+    JKeyboardLayout *symbolShifted;
 
     JKey *holdKey;
     QTimer holdTimer;

@@ -63,7 +63,7 @@ static KeyData qwerty3[] = {
 };
 
 static KeyData qwerty4[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, 0, 0, 0, 0, ":/icons/english.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/english.png" },
     { 2, Qt::Key_Comma, Qt::Key_Minus, ",", "-", 0, 0, 0 },
     { 8, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, Qt::Key_Period, Qt::Key_Apostrophe, ".", "'", 0, 0, 0 },
@@ -115,7 +115,7 @@ static KeyData qwertyShifted3[] = {
 };
 
 static KeyData qwertyShifted4[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, 0, 0, 0, 0, ":/icons/english.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/english.png" },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0, 0 },
     { 8, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, Qt::Key_Apostrophe, 0, "'", 0, 0, 0, 0 },
@@ -189,7 +189,7 @@ static KeyData thai4[] = {
 };
 
 static KeyData thai5[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, 0, 0, 0, 0, ":/icons/thai.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/thai.png" },
     { 2, Qt::Key_Comma, Qt::Key_Minus, ",", "-", 0, 0, 0 },
     { 6, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, 0, 0, "ฝ", "ฦ", 0, 0, 0 },
@@ -260,7 +260,7 @@ static KeyData thaiShifted4[] = {
 };
 
 static KeyData thaiShifted5[] = {
-    { 2, Qt::Key_Mode_switch, Qt::Key_Mode_switch, 0, 0, 0, 0, ":/icons/thai.png" },
+    { 2, Qt::Key_Mode_switch, Qt::Key_AltGr, 0, "1#", 0, 0, ":/icons/thai.png" },
     { 2, Qt::Key_Minus, 0, "-", 0, 0, 0, 0 },
     { 6, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
     { 2, 0, 0, "ฦ", 0, 0, 0, 0 },
@@ -275,7 +275,119 @@ static KeyData *thaiShiftedKeyData[] = { thaiShifted1, thaiShifted2,
                                          thaiShifted3, thaiShifted4,
                                          thaiShifted5 };
 
+static KeyData symbol1[] = {
+    { 2, 0, 0, "#", "[", 0, 0, 0 },
+    { 2, 0, 0, "1", 0, 0, 0, 0 },
+    { 2, 0, 0, "2", 0, 0, 0, 0 },
+    { 2, 0, 0, "3", 0, 0, 0, 0 },
+    { 2, 0, 0, "(", "~", 0, 0, 0 },
+    { 2, 0, 0, ")", "<", 0, 0, 0 },
+    { 2, 0, 0, "_", "{", 0, 0, 0 },
+    { 2, 0, 0, "-", "|", 0, 0, 0 },
+    { 2, 0, 0, "+", "^", 0, 0, 0 },
+    { 2, 0, 0, "@", "%", 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData symbol2[] = {
+    { 2, 0, 0, "*", "]", 0, 0, 0 },
+    { 2, 0, 0, "4", 0, 0, 0, 0 },
+    { 2, 0, 0, "5", 0, 0, 0, 0 },
+    { 2, 0, 0, "6", 0, 0, 0, 0 },
+    { 2, 0, 0, "/", "\\", 0, 0, 0 },
+    { 2, 0, 0, ":", ">", 0, 0, 0 },
+    { 2, 0, 0, ";", "}", 0, 0, 0 },
+    { 2, 0, 0, "'", "`", 0, 0, 0 },
+    { 2, 0, 0, "\"", "&", 0, 0, 0 },
+    { 2, Qt::Key_Backspace, Qt::Key_Backspace, 0, 0, 0, 0, ":/icons/backspace.png" },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData symbol3[] = {
+    { 2, Qt::Key_Shift, Qt::Key_Shift, 0, 0, 0, 0, ":/icons/shift.png" },
+    { 2, 0, 0, "7", 0, 0, 0, 0 },
+    { 2, 0, 0, "8", 0, 0, 0, 0 },
+    { 2, 0, 0, "9", 0, 0, 0, 0 },
+    { 2, 0, 0, "$", 0, 0, 0, 0 },
+    { 2, 0, 0, "?", "€", 0, 0, 0 },
+    { 2, 0, 0, "!", "฿", 0, 0, 0 },
+    { 2, 0, 0, "=", 0, 0, 0, 0 },
+    { 2, 0, 0, ",", 0, 0, 0, 0 },
+    { 2, Qt::Key_Shift, Qt::Key_Shift, 0, 0, 0, 0, ":/icons/shift.png" },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData symbol4[] = {
+    { 1, -1, 0, 0, 0, 0, 0, 0 },
+    { 3, Qt::Key_AltGr, Qt::Key_AltGr, 0, 0, 0, 0, ":/icons/ic_menu_revert.png" },
+    { 2, 0, 0, "0", 0, 0, 0, 0 },
+    { 8, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
+    { 2, 0, 0, ".", 0, 0, 0, 0 },
+    { 3, Qt::Key_Return, Qt::Key_Return, 0, 0, 0, 0, ":/icons/enter.png" },
+    { 1, -1, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData symbolShifted1[] = {
+    { 2, 0, 0, "[", 0, 0, 0, 0 },
+    { 2, 0, 0, "1", 0, 0, 0, 0 },
+    { 2, 0, 0, "2", 0, 0, 0, 0 },
+    { 2, 0, 0, "3", 0, 0, 0, 0 },
+    { 2, 0, 0, "~", 0, 0, 0, 0 },
+    { 2, 0, 0, "<", 0, 0, 0, 0 },
+    { 2, 0, 0, "{", 0, 0, 0, 0 },
+    { 2, 0, 0, "|", 0, 0, 0, 0 },
+    { 2, 0, 0, "^", 0, 0, 0, 0 },
+    { 2, 0, 0, "%", 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData symbolShifted2[] = {
+    { 2, 0, 0, "]", 0, 0, 0, 0 },
+    { 2, 0, 0, "4", 0, 0, 0, 0 },
+    { 2, 0, 0, "5", 0, 0, 0, 0 },
+    { 2, 0, 0, "6", 0, 0, 0, 0 },
+    { 2, 0, 0, "\\", 0, 0, 0, 0 },
+    { 2, 0, 0, ">", 0, 0, 0, 0 },
+    { 2, 0, 0, "}", 0, 0, 0, 0 },
+    { 2, 0, 0, "`", 0, 0, 0, 0 },
+    { 2, 0, 0, "&&", 0, 0, 0, 0 },
+    { 2, Qt::Key_Backspace, Qt::Key_Backspace, 0, 0, 0, 0, ":/icons/backspace.png" },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData symbolShifted3[] = {
+    { 2, Qt::Key_Meta, Qt::Key_Meta, 0, 0, 0, 0, ":/icons/shift.png" },
+    { 2, 0, 0, "7", 0, 0, 0, 0 },
+    { 2, 0, 0, "8", 0, 0, 0, 0 },
+    { 2, 0, 0, "9", 0, 0, 0, 0 },
+    { 2, 0, 0, "$", 0, 0, 0, 0 },
+    { 2, 0, 0, "€", 0, 0, 0, 0 },
+    { 2, 0, 0, "฿", 0, 0, 0, 0 },
+    { 2, 0, 0, "=", 0, 0, 0, 0 },
+    { 2, 0, 0, ",", 0, 0, 0, 0 },
+    { 2, Qt::Key_Meta, Qt::Key_Meta, 0, 0, 0, 0, ":/icons/shift.png" },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData symbolShifted4[] = {
+    { 1, -1, 0, 0, 0, 0, 0, 0 },
+    { 3, Qt::Key_AltGr, Qt::Key_AltGr, 0, 0, 0, 0, ":/icons/ic_menu_revert.png" },
+    { 2, 0, 0, "0", 0, 0, 0, 0 },
+    { 8, Qt::Key_Space, 0, " ", 0, 0, 0, 0 },
+    { 2, 0, 0, ".", 0, 0, 0, 0 },
+    { 3, Qt::Key_Return, Qt::Key_Return, 0, 0, 0, 0, ":/icons/enter.png" },
+    { 1, -1, 0, 0, 0, 0, 0, 0 },
+    { 0, 0, 0, 0, 0, 0, 0, 0 },
+};
+
+static KeyData *symbolKeyData[] = { symbol1, symbol2, symbol3, symbol4 };
+static KeyData *symbolShiftedKeyData[] = { symbolShifted1, symbolShifted2,
+                                           symbolShifted3, symbolShifted4 };
+
 KeyLayout qwertyKeys = KeyLayout(4, qwertyKeyData);
 KeyLayout qwertyShiftedKeys = KeyLayout(4, qwertyShiftedKeyData);
 KeyLayout thaiKeys = KeyLayout(5, thaiKeyData);
 KeyLayout thaiShiftedKeys = KeyLayout(5, thaiShiftedKeyData);
+KeyLayout symbolKeys = KeyLayout(4, symbolKeyData);
+KeyLayout symbolShiftedKeys = KeyLayout(4, symbolShiftedKeyData);
