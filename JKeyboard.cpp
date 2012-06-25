@@ -51,7 +51,7 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     if (keyData->icon) {
         setIcon(QIcon(keyData->icon));
         setIconSize(QSize(36, 36));
-        setStyleSheet("* { background-color: #404040; }"
+        setStyleSheet("* { background-color: #444444; }"
                       "*:pressed { background-color: #00D5FF; }");
     }
     setFocusPolicy(Qt::NoFocus);
@@ -401,10 +401,6 @@ void JKeyboard::predictWordClicked()
     s.remove(0, composeStr.length());
     if (s.length() && receiver) {
         QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier, s);
-        QApplication::sendEvent(receiver, &event);
-    }
-    if (currentLang == ENGLISH) {
-        QKeyEvent event(QEvent::KeyPress, 0, Qt::NoModifier, " ");
         QApplication::sendEvent(receiver, &event);
     }
 
