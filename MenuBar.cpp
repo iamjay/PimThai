@@ -27,7 +27,7 @@ MenuBar::MenuBar(QWidget *parent) :
     setupUi(this);
 }
 
-#if __QNX__
+#if Q_OS_BLACKBERRY
 bool MenuBar::event(QEvent *event)
 {
     if (event->type() == QEvent::Hide)

@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-#if __QNX__
+#if Q_OS_BLACKBERRY
     QFontDatabase::addApplicationFont("app/native/fonts/Garuda.ttf");
 #else
     QFontDatabase::addApplicationFont("Garuda.ttf");
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     a.setInputContext(new JDummyInputContext());
 
     PimThaiWindow window;
-#if __QNX__
+#if Q_OS_BLACKBERRY
     window.showMaximized();
 #else
     window.show();

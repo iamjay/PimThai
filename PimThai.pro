@@ -16,7 +16,7 @@
 ## along with PimThai.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-QT += sql
+QT += sql declarative sql svg
 
 TEMPLATE = app
 DEPENDPATH += .
@@ -54,7 +54,12 @@ OTHER_FILES += \
     dict.db \
     eng_dict.db \
     Garuda.ttf \
-    splash.png
+    splash.png \
+    textedit.qml
+
+linux-g++ {
+    QML_IMPORT_PATH += ../imports_x64
+}
 
 blackberry-armv7le-qcc {
     LIBS += -lclipboard
@@ -73,8 +78,15 @@ PACKAGE_OPT = \
     -e ${QTDIR}/lib/libQtOpenGL.so.4 lib/libQtOpenGL.so.4 \
     -e ${QTDIR}/lib/libQtNetwork.so.4 lib/libQtNetwork.so.4 \
     -e ${QTDIR}/lib/libQtSql.so.4 lib/libQtSql.so.4 \
+    -e ${QTDIR}/lib/libQtDeclarative.so.4 lib/libQtDeclarative.so.4 \
+    -e ${QTDIR}/lib/libQtScript.so.4 lib/libQtScript.so.4 \
+    -e ${QTDIR}/lib/libQtSvg.so.4 lib/libQtSvg.so.4 \
+    -e ${QTDIR}/lib/libQtXml.so.4 lib/libQtXml.so.4 \
+    -e ${QTDIR}/lib/libQtXmlPatterns.so.4 lib/libQtXmlPatterns.so.4 \
     -e ${QTDIR}/plugins/platforms/libblackberry.so plugins/platforms/libblackberry.so \
-    -e ${QTDIR}/plugins/sqldrivers/libqsqlite.so plugins/sqldrivers/libqsqlite.so
+    -e ${QTDIR}/plugins/imageformats/libqsvg.so plugins/imageformats/libqsvg.so \
+    -e ${QTDIR}/plugins/sqldrivers/libqsqlite.so plugins/sqldrivers/libqsqlite.so \
+    -e ../imports imports
 
 PACKAGE_DEPEND = \
     $${TARGET} $${PWD}/bar-descriptor.xml \

@@ -19,6 +19,7 @@
 #ifndef PIMTHAIWINDOW_H
 #define PIMTHAIWINDOW_H
 
+#include <QDeclarativeView>
 #include <QMainWindow>
 
 #include "ui_PimThaiWindow.h"
@@ -51,6 +52,8 @@ private:
         MAX_BUFFER = 4
     };
 
+    QDeclarativeView *textEditView;
+    QObject *textEdit;
     MenuBar *menuBar;
     Toaster *toaster;
     QSettings settingsDb;

@@ -133,7 +133,7 @@ QSize PredictionContainer::minimumSizeHint() const
     return QSize(0, 52);
 }
 
-JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
+JKeyboard::JKeyboard(QWidget *receiver, QWidget *parent)
     : QWidget(parent)
 {
     if (codec == 0)
@@ -149,7 +149,7 @@ JKeyboard::JKeyboard(QPlainTextEdit *receiver, QWidget *parent)
 
     dictDb = QSqlDatabase::addDatabase("QSQLITE", "dict");
     engDictDb = QSqlDatabase::addDatabase("QSQLITE", "eng_dict");
-#if __QNX__
+#if Q_OS_BLACKBERRY
     dictDb.setDatabaseName("app/native/dict.db");
     engDictDb.setDatabaseName("app/native/eng_dict.db");
 #else
@@ -338,12 +338,8 @@ void JKeyboard::processKeyInput(JKey *key, bool held)
         }
 
         if (keyCode != 0 || !keyText.isEmpty()) {
-            if (keyCode == 0) {
-                receiver->insertPlainText(keyText);
-            } else {
-                QKeyEvent event(QEvent::KeyPress, keyCode, Qt::NoModifier, keyText);
-                QApplication::sendEvent(receiver, &event);
-            }
+            QKeyEvent event(QEvent::KeyPress, keyCode, Qt::NoModifier, keyText);
+            QApplication::sendEvent(receiver, &event);
 
             if (predictionEnabled) {
                 if (keyCode == Qt::Key_Backspace) {
@@ -394,8 +390,6 @@ void JKeyboard::holdTimeout()
 
 void JKeyboard::predictWordClicked()
 {
-    QObject *receiver = QApplication::focusWidget();
-
     QPushButton *button = static_cast<QPushButton *>(QObject::sender());
     QString s = button->text();
     s.remove(0, composeStr.length());

@@ -18,7 +18,9 @@
 
 #include <QtGui>
 
-#if __QNX__
+#include <QDebug>
+
+#if Q_OS_BLACKBERRY
 #include <clipboard/clipboard.h>
 #endif
 
@@ -43,14 +45,19 @@ PimThaiWindow::PimThaiWindow(QWidget *parent)
     menuBar = new MenuBar(this);
     toaster = new Toaster(this);
 
-    keyboard = new JKeyboard(textEdit);
     QVBoxLayout *l = static_cast<QVBoxLayout *>(mainContainer->layout());
+
+    textEditView = new QDeclarativeView;
+    textEditView->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    textEditView->setSource(QUrl("qrc:/qml/textedit.qml"));
+    textEditView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    textEdit = textEditView->rootObject();
+    l->addWidget(textEditView, 1);
+
+    keyboard = new JKeyboard(textEditView);
     l->addWidget(keyboard->getPredictionWidget());
 
     verticalLayout->addWidget(keyboard, 3);
-
-    textEdit->setFocus();
-    setFocusProxy(textEdit);
 
     bufferButtons[0] = buf0Button;
     bufferButtons[1] = buf1Button;
@@ -99,14 +106,25 @@ void PimThaiWindow::keyPressEvent(QKeyEvent *event)
 void PimThaiWindow::changeEvent(QEvent *event)
 {
     if (event->type() == QEvent::ActivationChange) {
+        QClipboard *cb = QApplication::clipboard();
+
         if (autoCopyEnabled && !isActiveWindow()) {
-#if __QNX__
-            const QByteArray s = JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()).toUtf8();
-            set_clipboard_data("text/plain", s.size(), s.constData());
-            set_clipboard_data("text/html", s.size(), s.constData());
+            QString s = textEdit->property("selectedText").toString();
+            if (s.length() == 0)
+                s = textEdit->property("text").toString();
+            cb->setText(s);
+        }
+
+        if (isActiveWindow()) {
+            cb->setText(JKeyboard::codec->fromUnicode(cb->text()));
+        } else {
+            QString s = JKeyboard::codec->toUnicode(cb->text().toLatin1());
+#if Q_OS_BLACKBERRY
+            const QByteArray buf = s.toUtf8();
+            set_clipboard_data("text/plain", buf.size(), buf.constData());
+            set_clipboard_data("text/html", buf.size(), buf.constData());
 #else
-            QClipboard *clipboard = QApplication::clipboard();
-            clipboard->setText(JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()));
+            cb->setText(s);
 #endif
         }
     }
@@ -114,7 +132,7 @@ void PimThaiWindow::changeEvent(QEvent *event)
 
 void PimThaiWindow::saveSettings()
 {
-    buffers[activeBuffer] = textEdit->toPlainText();
+    buffers[activeBuffer] = textEdit->property("text").toString();
 
     settingsDb.setValue(activeBufferKey, activeBuffer);
     settingsDb.setValue(buffer0Key, buffers[0]);
@@ -141,7 +159,7 @@ void PimThaiWindow::aboutClicked()
 
     AboutDialog d;
     d.setModal(true);
-#if __QNX__
+#if Q_OS_BLACKBERRY
     d.showMaximized();
 #endif
     d.exec();
@@ -157,23 +175,21 @@ void PimThaiWindow::autoCopyClicked(bool enabled)
 
 void PimThaiWindow::clearBuffer()
 {
-    textEdit->clear();
+    textEdit->setProperty("text", "");
     keyboard->clearCompose();
 }
 
 void PimThaiWindow::copyToClipboard()
 {
-#if __QNX__
-    const QByteArray s = JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()).toUtf8();
-    set_clipboard_data("text/plain", s.size(), s.constData());
-    set_clipboard_data("text/html", s.size(), s.constData());
-#else
-    QClipboard *clipboard = QApplication::clipboard();
-    clipboard->setText(JKeyboard::codec->toUnicode(textEdit->toPlainText().toLatin1()));
-#endif
+    QString s = textEdit->property("selectedText").toString();
+    if (s.length() == 0)
+        s = textEdit->property("text").toString();
 
-    QSize ts = textEdit->size();
-    QPoint p = textEdit->pos();
+    QClipboard *cb = QApplication::clipboard();
+    cb->setText(s);
+
+    QSize ts = textEditView->size();
+    QPoint p = textEditView->pos();
     p.rx() += ts.width() / 2;
     p.ry() += ts.height() / 2;
     p = mapToGlobal(p);
@@ -185,7 +201,7 @@ void PimThaiWindow::updateBuffer(QToolButton *button)
     for (int i = 0; i < MAX_BUFFER; ++i) {
         if (button == bufferButtons[i]) {
             activeBuffer = i;
-            textEdit->setPlainText(buffers[i]);
+            textEdit->setProperty("text", buffers[i]);
             bufferButtons[i]->setChecked(true);
         } else {
             bufferButtons[i]->setChecked(false);
@@ -196,7 +212,7 @@ void PimThaiWindow::updateBuffer(QToolButton *button)
 
 void PimThaiWindow::bufferButtonClicked()
 {
-    buffers[activeBuffer] = textEdit->toPlainText();
+    buffers[activeBuffer] = textEdit->property("text").toString();
     updateBuffer(static_cast<QToolButton *>(QObject::sender()));
 }
 

@@ -11,4 +11,7 @@
         <file>thai.png</file>
         <file>ic_menu_revert.png</file>
     </qresource>
+    <qresource prefix="/qml">
+        <file>textedit.qml</file>
+    </qresource>
 </RCC>

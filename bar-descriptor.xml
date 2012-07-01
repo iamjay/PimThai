@@ -18,6 +18,7 @@
 
     <env var="LD_LIBRARY_PATH" value="app/native/lib"/>
     <env var="QT_PLUGIN_PATH" value="app/native/plugins" />
+    <env var="QML_IMPORT_PATH" value="app/native/imports" />
 
     <configuration name="Default">
        <platformArchitecture>armle-v7</platformArchitecture>

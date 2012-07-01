@@ -29,7 +29,7 @@ public:
     explicit MenuBar(QWidget *parent = 0);
 
 protected:
-#if __QNX__
+#if Q_OS_BLACKBERRY
     bool event(QEvent *event);
 #endif
 };
