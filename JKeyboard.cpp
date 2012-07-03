@@ -51,8 +51,8 @@ JKey::JKey(const KeyData *key, QWidget *parent)
     if (keyData->icon) {
         setIcon(QIcon(keyData->icon));
         setIconSize(QSize(36, 36));
-        setStyleSheet("* { background-color: #444444; }"
-                      "*:pressed { background-color: #00D5FF; }");
+        setStyleSheet("QPushButton#key { font-size: 19pt; border-radius: 6px; color: white; background: qradialgradient(cx: 0.5, cy: -0.4, fx: 0.5, fy: 0, radius: 1.4, stop:0 #475E7D, stop:1 #080B2C); }"
+                      "QPushButton#key:pressed { border-radius: 6px; background: qradialgradient(cx: 0.5, cy: -0.4, fx: 0.5, fy: 0, radius: 1.4, stop:0 #080B2C, stop:1 #475E7D); }");
     }
     setFocusPolicy(Qt::NoFocus);
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
@@ -159,8 +159,8 @@ JKeyboard::JKeyboard(QWidget *receiver, QWidget *parent)
     dictDb.open();
     engDictDb.open();
 
-    setStyleSheet("QPushButton#key { font-size: 19pt; border-radius: 6px; color: white; background-color: black; }"
-                  "QPushButton#key:pressed { border-radius: 6px; background-color: #00D5FF; }");
+    setStyleSheet("QPushButton#key { font-size: 19pt; border-radius: 6px; color: white; background: qradialgradient(cx: 0.5, cy: -0.4, fx: 0.5, fy: 0, radius: 1.4, stop:0 #7A7D84, stop:1 #444152); }"
+                  "QPushButton#key:pressed { border-radius: 6px; background: qradialgradient(cx: 0.5, cy: -0.4, fx: 0.5, fy: 0, radius: 1.4, stop:0 #444152, stop:1 #7A7D84); }");
 
     QHBoxLayout *hbox = new QHBoxLayout();
     hbox->setContentsMargins(0, 0, 0, 0);
@@ -252,10 +252,13 @@ void JKeyboard::updatePrediction()
         predictWord.clear();
     }
 
+    QSqlDatabase *db = currentLang == THAI ? &dictDb : &engDictDb;
     QString composeStrUnicode = codec->toUnicode(composeStr.toLatin1());
-    QSqlQuery q(QString("select word, freq from words where word like '%1%%' order by freq desc limit %2")
-                .arg(composeStrUnicode).arg(MAX_PREDICTION),
-                currentLang == THAI ? dictDb : engDictDb);
+    QString sqlStr = QString("select word, freq from words where word like %1"
+                             " order by freq desc limit %2")
+            .arg(db->driver()->escapeIdentifier(composeStrUnicode + "%", QSqlDriver::FieldName))
+            .arg(MAX_PREDICTION);
+    QSqlQuery q(sqlStr, *db);
 
     QPushButton *button = predictButton.at(0);
     button->setText(composeStr);

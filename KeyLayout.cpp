@@ -129,7 +129,7 @@ static KeyData *qwertyShiftedKeyData[] = { qwertyShifted1, qwertyShifted2,
                                             qwertyShifted3, qwertyShifted4 };
 
 static KeyData thai1[] = {
-    { 2, Qt::Key_Comma, 0, "ๆ", 0, 0, 0, 0 },
+    { 2, 0, 0, "ๆ", "฿", 0, 0, 0 },
     { 2, 0, 0, "ภ", "๑", 0, 0, 0 },
     { 2, 0, 0, "ถ", "๒", 0, 0, 0 },
     { 2, 0, 0, "ุ", "๓", 0, 0, 0 },
@@ -200,7 +200,7 @@ static KeyData thai5[] = {
 };
 
 static KeyData thaiShifted1[] = {
-    { 2, 0, 0, "ๆ", 0, 0, 0, 0 },
+    { 2, 0, 0, "฿", 0, 0, 0, 0 },
     { 2, 0, Qt::Key_1, "๑", "1", 0, 0, 0 },
     { 2, 0, Qt::Key_2, "๒", "2", 0, 0, 0 },
     { 2, 0, Qt::Key_3, "๓", "3", 0, 0, 0 },
