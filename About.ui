@@ -101,7 +101,7 @@ QScrollBar:vertical { background-color: #559BBF; min-width: 16px; margin-right: 
           <string notr="true">padding-bottom: 20px;</string>
          </property>
          <property name="text">
-          <string>version 1.0.0.18</string>
+          <string>version 1.0.0.19</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
